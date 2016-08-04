@@ -11,3 +11,7 @@
 - Avaa pelin.
 - Pelaa, kunnes peli päättyy voittoon tai häviöön.
 - Sulkee pelin
+
+**Luokkakaavio:**
+![Alt text](https://github.com/jonscu/Miinaharava/blob/master/Luokkakaavio.jpg)
+

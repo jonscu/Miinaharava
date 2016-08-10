@@ -8,3 +8,6 @@ Päivä | Tunnit | Kuvaus
 02.8.2016| 2.0h  | Testaus
 03.8.2016| 2.0h  | Testaus + koodaus
 04.8.2016| 3.0h  | Pit, Checkstyle, Readme ja palautus
+08.8.2016| 5.0h  | Koodia
+09.8.2016| 5.0h  | Koodia + testiä
+10.8.2016| 3.0h  | Pit, Checkstyle, Readme ja palautus

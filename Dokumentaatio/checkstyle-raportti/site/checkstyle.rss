@@ -46,7 +46,7 @@ under the License.
           <tbody>
                           <tr>
                 <td>
-                  <a href="${project.url}/checkstyle.html#miinaharava.jonnanmiinaharava.Ruutu.java">miinaharava/jonnanmiinaharava/Ruutu.java</a>
+                  <a href="${project.url}/checkstyle.html#fi.jonna.mehtonen.Main.java">fi/jonna/mehtonen/Main.java</a>
                 </td>
                 <td>
                   0
@@ -60,7 +60,7 @@ under the License.
               </tr>
                           <tr>
                 <td>
-                  <a href="${project.url}/checkstyle.html#miinaharava.jonnanmiinaharava.PelilaudanLuoja.java">miinaharava/jonnanmiinaharava/PelilaudanLuoja.java</a>
+                  <a href="${project.url}/checkstyle.html#fi.jonna.mehtonen.domain.Pelilauta.java">fi/jonna/mehtonen/domain/Pelilauta.java</a>
                 </td>
                 <td>
                   0
@@ -74,7 +74,7 @@ under the License.
               </tr>
                           <tr>
                 <td>
-                  <a href="${project.url}/checkstyle.html#miinaharava.jonnanmiinaharava.Pelilauta.java">miinaharava/jonnanmiinaharava/Pelilauta.java</a>
+                  <a href="${project.url}/checkstyle.html#fi.jonna.mehtonen.domain.Ruutu.java">fi/jonna/mehtonen/domain/Ruutu.java</a>
                 </td>
                 <td>
                   0
@@ -88,7 +88,7 @@ under the License.
               </tr>
                           <tr>
                 <td>
-                  <a href="${project.url}/checkstyle.html#miinaharava.jonnanmiinaharava.Main.java">miinaharava/jonnanmiinaharava/Main.java</a>
+                  <a href="${project.url}/checkstyle.html#fi.jonna.mehtonen.PelilaudanLuoja.java">fi/jonna/mehtonen/PelilaudanLuoja.java</a>
                 </td>
                 <td>
                   0
@@ -102,7 +102,7 @@ under the License.
               </tr>
                           <tr>
                 <td>
-                  <a href="${project.url}/checkstyle.html#miinaharava.jonnanmiinaharava.Sijainti.java">miinaharava/jonnanmiinaharava/Sijainti.java</a>
+                  <a href="${project.url}/checkstyle.html#fi.jonna.mehtonen.Kayttoliittyma.java">fi/jonna/mehtonen/Kayttoliittyma.java</a>
                 </td>
                 <td>
                   0

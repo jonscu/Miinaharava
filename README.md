@@ -4,4 +4,9 @@ Miinaharavassa käytössä on pelilauta, jonka kaikki ruudut ovat alussa paljast
 
 ## Dokumentaatio
 [Aiheen kuvaus](Dokumentaatio/AiheenKuvausJaRakenne.md)
+
 [Tuntikirjanpito](Dokumentaatio/Tuntikirjanpito.md)
+
+[Pit-raportti](https://htmlpreview.github.io/?https://github.com/jonscu/Miinaharava/blob/master/Dokumentaatio/pit-raportti/201608101443/index.html)
+
+[Checkstyle-raportti](https://htmlpreview.github.io/?https://github.com/jonscu/Miinaharava/blob/master/Dokumentaatio/checkstyle-raportti/site/checkstyle.html)

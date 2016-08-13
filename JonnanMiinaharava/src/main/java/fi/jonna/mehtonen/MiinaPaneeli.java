@@ -47,30 +47,60 @@ public class MiinaPaneeli extends JFrame {
         add(paneeli);
     }
 
-    // Avataan ruutu. Tällä hetkellä '*' on miina, ja lukuarvo on
-    // naapurissa olevien miinojen määrä
+    // Avataan ruutu hiiren vasemmalla näppäimellä. 
+    // Tällä hetkellä '*' on miina, ja lukuarvo on
+    // naapurissa olevien miinojen määrä.
     public void avataanRuutu(JButton nappula, int rivi, int sarake) {
+        ruudut[rivi][sarake].merkkaaRuutuAvatuksi();
         if (ruudut[rivi][sarake].isOnkoMiina()) {
             nappula.setText("*");
         } else {
             String luku = Integer.toString(ruudut[rivi][sarake].getArvo());
             nappula.setText(luku);
         }
+        nappula.setEnabled(false);
     }
 
     // Hiiren oikealla näppäimellä asetetaan lippu
     public void asetaLippu(JButton nappula, int rivi, int sarake) {
         nappula.setText("lippu");
+        ruudut[rivi][sarake].asetaLippu();
+        nappula.setEnabled(false);
+    }
+
+    private void poistaLippu(JButton nappula, int rivi, int sarake) {
+        nappula.setText("");
+        ruudut[rivi][sarake].poistaLippu();
+        nappula.setEnabled(true);
+    }
+
+    // Tarkistetaan, onko peli voitettu.
+    public Boolean voitto() {
+        int miinojaMerkattu = 0;
+
+        for (int k = 0; k < koko; k++) {
+            for (int j = 0; j < koko; j++) {
+                if (ruudut[k][j].isOnkoLippu() && ruudut[k][j].isOnkoMiina()) {
+                    miinojaMerkattu++;
+                }
+            }
+        }
+        if (miinojaMerkattu == miinoja) {
+            return true;
+        } else {
+            return false;
+        }
     }
 
     public class Mouse implements MouseListener {
 
         @Override
         public void mouseClicked(MouseEvent tapahtuma) {
-            if (tapahtuma.getButton() == 1) {
+            Component nappula = tapahtuma.getComponent();
+            if (nappula.isEnabled() && tapahtuma.getButton() == 1) {
                 for (int k = 0; k < koko; k++) {
                     for (int j = 0; j < koko; j++) {
-                        if (tapahtuma.getComponent() == ruudukko[k][j]) {
+                        if (nappula == ruudukko[k][j]) {
                             avataanRuutu(ruudukko[k][j], k, j);
                             break;
                         }
@@ -79,9 +109,14 @@ public class MiinaPaneeli extends JFrame {
             } else if (tapahtuma.getButton() == 3) {
                 for (int k = 0; k < koko; k++) {
                     for (int j = 0; j < koko; j++) {
-                        if (tapahtuma.getComponent() == ruudukko[k][j]) {
-                            asetaLippu(ruudukko[k][j], k, j);
-                            break;
+                        if (nappula == ruudukko[k][j]) {
+                            if (nappula.isEnabled()) {
+                                asetaLippu(ruudukko[k][j], k, j);
+                                break;
+                            } else if (!nappula.isEnabled()) {
+                                poistaLippu(ruudukko[k][j], k, j);
+                                break;
+                            }
                         }
                     }
                 }

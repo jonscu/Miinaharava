@@ -51,28 +51,6 @@ public class Pelilauta {
         return miinoja;
     }
 
-    public Boolean voitto() {
-        int miinoja = miinojaYhteensa();
-        int miinojaMerkattu = 0;
-
-        for (int k = 0; k < koko; k++) {
-            for (int j = 0; j < koko; j++) {
-                if (ruudut[k][j].isOnkoLippu() && ruudut[k][j].isOnkoMiina()) {
-                    miinojaMerkattu++;
-                }
-            }
-        }
-        if (miinojaMerkattu == miinoja) {
-            return true;
-        } else {
-            return false;
-        }
-    }
-
-    public void avaaRuutu(int rivi, int sarake) {
-        ruudut[rivi][sarake].merkkaaRuutuAvatuksi();
-    }
-
     public int getRuudutKoko() {
         return ruudut.length;
     }

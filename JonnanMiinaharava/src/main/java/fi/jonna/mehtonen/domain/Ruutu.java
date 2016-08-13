@@ -41,6 +41,10 @@ public class Ruutu {
     public void asetaLippu() {
         onkoLippu = true;
     }
+    
+    public void poistaLippu() {
+        onkoLippu = false;
+    }
 
     public boolean isOnkoAvattu() {
         return onkoAvattu;

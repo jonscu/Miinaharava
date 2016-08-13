@@ -17,13 +17,13 @@ public class Pelilauta {
     private int koko;
     private Ruutu[][] ruudut;
 
-    public Pelilauta(int laudankoko) {
-        this.koko = laudankoko;
+    public Pelilauta(int laudanKoko) {
+        this.koko = laudanKoko;
         PelilaudanLuoja lauta = new PelilaudanLuoja(koko);
         ruudut = lauta.getRuudut();
-        asetaRuuduilleArvot();
     }
 
+    //Turha, tarkistin vain, että koodi toimii
     public void tulostaPelilauta() {
         for (int k = 0; k < koko; k++) {
             for (int j = 0; j < koko; j++) {
@@ -38,35 +38,7 @@ public class Pelilauta {
         }
     }
 
-    public void asetaRuuduilleArvot() {
-        for (int k = 0; k < koko; k++) {
-            for (int j = 0; j < koko; j++) {
-                if (!ruudut[k][j].isOnkoMiina()) {
-                    ruudut[k][j].setArvo(montaMiinaaNaapurissa(k, j));
-                }
-            }
-        }
-
-    }
-
-    public int montaMiinaaNaapurissa(int rivi, int sarake) {
-        int arvo = 0;
-        for (int i = -1; i <= 1; i++) {
-            for (int k = -1; k <= 1; k++) {
-                int uusirivi = rivi - i;
-                int uusisarake = sarake - k;
-                if (uusirivi == rivi && uusisarake == sarake) {
-                    continue;
-                } else if (uusirivi >= 0 && uusirivi < koko && uusisarake >= 0 && uusisarake < koko) {
-                    if (ruudut[uusirivi][uusisarake].isOnkoMiina()) {
-                        arvo++;
-                    }
-                }
-            }
-        }
-        return arvo;
-    }
-
+    //Tämäkin ehkä turha..
     public int miinojaYhteensa() {
         int miinoja = 0;
         for (int k = 0; k < koko; k++) {

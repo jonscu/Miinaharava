@@ -15,20 +15,21 @@ import java.util.Random;
 public class PelilaudanLuoja {
 
     private Ruutu[][] ruudut;
-    private int laudankoko;
+    private int laudanKoko;
     private Random rnd;
 
     public PelilaudanLuoja(int koko) {
         ruudut = new Ruutu[koko][koko];
-        this.laudankoko = koko;
+        this.laudanKoko = koko;
         this.rnd = new Random();
         luoRuudut();
         asetaMiinat();
+        asetaRuuduilleArvot();
     }
 
     public void luoRuudut() {
-        for (int k = 0; k < laudankoko; k++) {
-            for (int j = 0; j < laudankoko; j++) {
+        for (int k = 0; k < laudanKoko; k++) {
+            for (int j = 0; j < laudanKoko; j++) {
                 ruudut[k][j] = new Ruutu();
             }
         }
@@ -37,9 +38,9 @@ public class PelilaudanLuoja {
     public void asetaMiinat() {
         int i;
         int j;
-        for (int k = 0; k < (laudankoko * laudankoko) / 5; k++) {
-            i = rnd.nextInt(laudankoko);
-            j = rnd.nextInt(laudankoko);
+        for (int k = 0; k < (laudanKoko * laudanKoko) / 5; k++) {
+            i = rnd.nextInt(laudanKoko);
+            j = rnd.nextInt(laudanKoko);
 
             if (ruudut[i][j].isOnkoMiina()) {
                 k--;
@@ -47,6 +48,35 @@ public class PelilaudanLuoja {
                 ruudut[i][j].asetaMiina();
             }
         }
+    }
+    
+        public void asetaRuuduilleArvot() {
+        for (int k = 0; k < laudanKoko; k++) {
+            for (int j = 0; j < laudanKoko; j++) {
+                if (!ruudut[k][j].isOnkoMiina()) {
+                    ruudut[k][j].setArvo(montaMiinaaNaapurissa(k, j));
+                }
+            }
+        }
+
+    }
+
+    public int montaMiinaaNaapurissa(int rivi, int sarake) {
+        int arvo = 0;
+        for (int i = -1; i <= 1; i++) {
+            for (int k = -1; k <= 1; k++) {
+                int uusiRivi = rivi - i;
+                int uusiSarake = sarake - k;
+                if (uusiRivi == rivi && uusiSarake == sarake) {
+                    continue;
+                } else if (uusiRivi >= 0 && uusiRivi < laudanKoko && uusiSarake >= 0 && uusiSarake < laudanKoko) {
+                    if (ruudut[uusiRivi][uusiSarake].isOnkoMiina()) {
+                        arvo++;
+                    }
+                }
+            }
+        }
+        return arvo;
     }
 
     public Ruutu[][] getRuudut() {

@@ -5,6 +5,8 @@
  */
 package fi.jonna.mehtonen.domain;
 
+import javax.swing.JButton;
+
 /**
  *
  * @author jonscu

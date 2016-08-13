@@ -8,6 +8,10 @@ package fi.jonna.mehtonen;
 import fi.jonna.mehtonen.domain.Pelilauta;
 import fi.jonna.mehtonen.domain.Ruutu;
 import java.util.Scanner;
+import javax.swing.JFrame;
+import java.awt.*;
+import java.awt.event.*;
+import javax.swing.*;
 
 /**
  *
@@ -42,9 +46,17 @@ public class Kayttoliittyma {
         }
         lauta = new Pelilauta(laudanKoko);
 
-        lauta.tulostaPelilauta();
-        System.out.println(lauta.miinojaYhteensa());
+        //lauta.tulostaPelilauta();
+        //System.out.println(lauta.miinojaYhteensa());
+
+        MiinaPaneeli frame = new MiinaPaneeli(laudanKoko, lauta);
+        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        frame.pack();
+        frame.setVisible(true);
     }
+
+
+
 
     public void pelaaVuoro() {
         System.out.println("Anna avattavan ruudun rivi sijainti:");

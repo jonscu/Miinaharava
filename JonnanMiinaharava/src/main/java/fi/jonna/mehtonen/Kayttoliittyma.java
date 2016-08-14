@@ -81,13 +81,6 @@ public class Kayttoliittyma {
     }
 
     public void pelaa(int koko) {
-        /**
-         * boolean totta = false; int laudanKoko = 0; System.out.println("Anna
-         * laudan koko YxY. Oltava vähintään Y=3:"); while (!totta) { laudanKoko
-         * = scan.nextInt(); if (laudanKoko < 3) { System.out.println("Laudan
-         * oltava isompi! Anna uusi koko: "); totta = false; } else { totta =
-         * true; } }*
-         */
         lauta = new Pelilauta(koko);
 
         MiinaPaneeli miinaharava = new MiinaPaneeli(koko, lauta);

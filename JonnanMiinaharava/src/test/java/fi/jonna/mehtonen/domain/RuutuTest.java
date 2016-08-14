@@ -52,4 +52,51 @@ public class RuutuTest {
         boolean vastaus = ruutu.isOnkoMiina();
         assertEquals(false, vastaus);
     }
+    
+    @Test
+    public void alussaRuudullaEiLippua() {
+        Ruutu ruutu = new Ruutu();
+        boolean vastaus = ruutu.isOnkoLippu();
+        assertEquals(false, vastaus);
+    }
+    
+    @Test
+    public void alussaRuutuaEiAvattu() {
+        Ruutu ruutu = new Ruutu();
+        boolean vastaus = ruutu.isOnkoAvattu();
+        assertEquals(false, vastaus);
+    }
+    
+    @Test
+    public void poistaLippuToimii() {
+        Ruutu ruutu = new Ruutu();
+        ruutu.asetaLippu();
+        ruutu.poistaLippu();
+        boolean vastaus = ruutu.isOnkoLippu();
+        assertEquals(false, vastaus);
+    }
+    
+    @Test
+    public void asetaLippuToimii() {
+        Ruutu ruutu = new Ruutu();
+        ruutu.asetaLippu();
+        boolean vastaus = ruutu.isOnkoLippu();
+        assertEquals(true, vastaus);
+    }
+    
+    @Test
+    public void asetaArvoToimii() {
+        Ruutu ruutu = new Ruutu();
+        ruutu.setArvo(50);
+        int vastaus = ruutu.getArvo();
+        assertEquals(50, vastaus);
+    }
+    
+    @Test
+    public void merkkaaRuutuAvatuksiToimii() {
+        Ruutu ruutu = new Ruutu();
+        ruutu.merkkaaRuutuAvatuksi();
+        boolean vastaus = ruutu.isOnkoAvattu();
+        assertEquals(true, vastaus);
+    }
 }

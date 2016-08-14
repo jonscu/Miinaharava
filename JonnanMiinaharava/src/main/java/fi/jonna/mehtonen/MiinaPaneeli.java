@@ -18,8 +18,8 @@ public class MiinaPaneeli extends JFrame {
 
     private int koko;
     private int miinoja;
-    JPanel paneeli = new JPanel();
-    private JButton[][] ruudukko;
+    private JPanel paneeli = new JPanel();
+    private JButton[][] nappulat;
     private Pelilauta lauta;
     private Ruutu[][] ruudut;
 
@@ -34,14 +34,14 @@ public class MiinaPaneeli extends JFrame {
 
         //Luodaan pelipohja ja nappulat
         paneeli.setLayout(new GridLayout(koko, koko));
-        ruudukko = new JButton[koko][koko];
+        nappulat = new JButton[koko][koko];
 
         for (int k = 0; k < koko; k++) {
             for (int i = 0; i < koko; i++) {
                 JButton nappula = new JButton();
                 nappula.addMouseListener(new Mouse());
-                ruudukko[k][i] = nappula;
-                paneeli.add(ruudukko[k][i]);
+                nappulat[k][i] = nappula;
+                paneeli.add(nappulat[k][i]);
             }
         }
         add(paneeli);
@@ -100,8 +100,8 @@ public class MiinaPaneeli extends JFrame {
             if (nappula.isEnabled() && tapahtuma.getButton() == 1) {
                 for (int k = 0; k < koko; k++) {
                     for (int j = 0; j < koko; j++) {
-                        if (nappula == ruudukko[k][j]) {
-                            avataanRuutu(ruudukko[k][j], k, j);
+                        if (nappula == nappulat[k][j]) {
+                            avataanRuutu(nappulat[k][j], k, j);
                             break;
                         }
                     }
@@ -109,12 +109,12 @@ public class MiinaPaneeli extends JFrame {
             } else if (tapahtuma.getButton() == 3) {
                 for (int k = 0; k < koko; k++) {
                     for (int j = 0; j < koko; j++) {
-                        if (nappula == ruudukko[k][j]) {
+                        if (nappula == nappulat[k][j]) {
                             if (nappula.isEnabled()) {
-                                asetaLippu(ruudukko[k][j], k, j);
+                                asetaLippu(nappulat[k][j], k, j);
                                 break;
-                            } else if (!nappula.isEnabled()) {
-                                poistaLippu(ruudukko[k][j], k, j);
+                            } else if (!nappula.isEnabled() && ruudut[k][j].isOnkoLippu()) {
+                                poistaLippu(nappulat[k][j], k, j);
                                 break;
                             }
                         }

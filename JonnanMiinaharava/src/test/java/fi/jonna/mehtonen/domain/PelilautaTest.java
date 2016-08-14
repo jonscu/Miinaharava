@@ -5,7 +5,6 @@
  */
 package fi.jonna.mehtonen.domain;
 
-import fi.jonna.mehtonen.PelilaudanLuoja;
 import fi.jonna.mehtonen.domain.Pelilauta;
 import fi.jonna.mehtonen.domain.Ruutu;
 import org.junit.After;
@@ -43,42 +42,43 @@ public class PelilautaTest {
     @Test
     public void miinojaOikeaMaara() {
         Pelilauta lauta = new Pelilauta(10);
-        int vastaus = lauta.miinojaYhteensa();
-        assertEquals(20, vastaus);
+        Ruutu[][] ruudut = lauta.getRuudut();
+        int miinoja = 0;
+        for (int k = 0; k < 10; k++) {
+            for (int j = 0; j < 10; j++) {
+                if (ruudut[k][j].isOnkoMiina()) {
+                    miinoja++;
+                }
+            }
+        }
+        assertEquals(20, miinoja);
     }
 
     @Test
     public void eiMiinojaKunRuutujaVahemmanKuinViisi() {
         Pelilauta lauta = new Pelilauta(2);
-        int vastaus = lauta.miinojaYhteensa();
-        assertEquals(0, vastaus);
+        Ruutu[][] ruudut = lauta.getRuudut();
+        int miinoja = 0;
+        for (int k = 0; k < 2; k++) {
+            for (int j = 0; j < 2; j++) {
+                if (ruudut[k][j].isOnkoMiina()) {
+                    miinoja++;
+                }
+            }
+        }
+        assertEquals(0, miinoja);
     }
 
     @Test
     public void laudanKokoOikea() {
         Pelilauta lauta = new Pelilauta(20);
-        int vastaus = lauta.getRuudutKoko();
+        int vastaus = lauta.getKoko();
         assertEquals(20, vastaus);
     }
-
-    //@Test
-    //public void voittoKunMiinoissaLiput() {
-      //  PelilaudanLuoja lauta = new PelilaudanLuoja(10);
-        //Ruutu[][] ruudut = lauta.getRuudut();
-        //for (int k = 0; k < 10; k++) {
-          //  for (int j = 0; j < 10; j++) {
-            //    if (ruudut[k][j].isOnkoMiina()) {
-              //      ruudut[k][j].asetaLippu();
-                //}
-            //}
-        //}
-        //boolean vastaus = lauta.voitto();
-        //assertEquals(true, vastaus);
-    //}
-
+    
     @Test
     public void naapurissaMiinojaOikeaMaara() {
-        PelilaudanLuoja lauta = new PelilaudanLuoja(3);
+        Pelilauta lauta = new Pelilauta(3);
         int vastaus = lauta.montaMiinaaNaapurissa(1, 1);
         assertEquals(1, vastaus);
     }

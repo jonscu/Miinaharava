@@ -5,8 +5,8 @@
  */
 package fi.jonna.mehtonen.domain;
 
-import fi.jonna.mehtonen.PelilaudanLuoja;
 import fi.jonna.mehtonen.domain.Ruutu;
+import java.util.Random;
 
 /**
  *
@@ -16,43 +16,75 @@ public class Pelilauta {
 
     private int koko;
     private Ruutu[][] ruudut;
+    private Random rnd;
 
     public Pelilauta(int laudanKoko) {
         this.koko = laudanKoko;
-        PelilaudanLuoja lauta = new PelilaudanLuoja(koko);
-        ruudut = lauta.getRuudut();
+        this.rnd = new Random();
+        ruudut = new Ruutu[koko][koko];
+        luoPelilauta();
     }
 
-    //Turha, tarkistin vain, että koodi toimii
-    public void tulostaPelilauta() {
+    public void luoPelilauta() {
+        luoRuudut();
+        asetaMiinat();
+        asetaRuuduilleArvot();
+    }
+
+    public void luoRuudut() {
         for (int k = 0; k < koko; k++) {
             for (int j = 0; j < koko; j++) {
-                if (ruudut[k][j].isOnkoMiina()) {
-                    System.out.print("*");
-                } else {
-                    System.out.print(ruudut[k][j].getArvo());
-                }
+                ruudut[k][j] = new Ruutu();
             }
-            System.out.println();
+        }
+    }
 
+    public void asetaMiinat() {
+        int i;
+        int j;
+        for (int k = 0; k < (koko * koko) / 5; k++) {
+            i = rnd.nextInt(koko);
+            j = rnd.nextInt(koko);
+
+            if (ruudut[i][j].isOnkoMiina()) {
+                k--;
+            } else {
+                ruudut[i][j].asetaMiina();
+            }
         }
     }
 
-    //Tämäkin ehkä turha..
-    public int miinojaYhteensa() {
-        int miinoja = 0;
+    public void asetaRuuduilleArvot() {
         for (int k = 0; k < koko; k++) {
             for (int j = 0; j < koko; j++) {
-                if (ruudut[k][j].isOnkoMiina()) {
-                    miinoja++;
+                if (!ruudut[k][j].isOnkoMiina()) {
+                    ruudut[k][j].setArvo(montaMiinaaNaapurissa(k, j));
                 }
             }
         }
-        return miinoja;
+
     }
 
-    public int getRuudutKoko() {
-        return ruudut.length;
+    public int montaMiinaaNaapurissa(int rivi, int sarake) {
+        int arvo = 0;
+        for (int i = -1; i <= 1; i++) {
+            for (int k = -1; k <= 1; k++) {
+                int uusiRivi = rivi - i;
+                int uusiSarake = sarake - k;
+                if (uusiRivi == rivi && uusiSarake == sarake) {
+                    continue;
+                } else if (uusiRivi >= 0 && uusiRivi < koko && uusiSarake >= 0 && uusiSarake < koko) {
+                    if (ruudut[uusiRivi][uusiSarake].isOnkoMiina()) {
+                        arvo++;
+                    }
+                }
+            }
+        }
+        return arvo;
+    }
+
+    public int getKoko() {
+        return koko;
     }
 
     public Ruutu[][] getRuudut() {

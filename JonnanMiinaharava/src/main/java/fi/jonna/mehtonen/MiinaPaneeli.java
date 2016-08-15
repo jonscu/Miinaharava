@@ -68,13 +68,15 @@ public class MiinaPaneeli extends JFrame {
         nappula.setEnabled(false);
     }
 
+    // Poistetaan lippu ruudusta hiiren oikealla näppäimellä
     private void poistaLippu(JButton nappula, int rivi, int sarake) {
         nappula.setText("");
         ruudut[rivi][sarake].poistaLippu();
         nappula.setEnabled(true);
     }
 
-    // Tarkistetaan, onko peli voitettu.
+    // Tarkistetaan, onko peli voitettu. Peli on voitettu, 
+    // jos kaikki miinattomat ruudut ovat avattu.
     public Boolean voitto() {
         int miinojaMerkattu = 0;
 
@@ -92,6 +94,49 @@ public class MiinaPaneeli extends JFrame {
         }
     }
 
+    // Tarkistetaan, onko peli hävitty. Peli hävitään,
+    // jos kayttaja avaa ruudun, jossa on miina.
+    public Boolean havio() {
+        for (int k = 0; k < koko; k++) {
+            for (int j = 0; j < koko; j++) {
+                if (ruudut[k][j].isOnkoMiina() && ruudut[k][j].isOnkoAvattu()) {
+                    return true;
+                }
+            }
+        }
+        return false;
+    }
+
+    public void voitaJaSuljePeli() {
+        Window w = SwingUtilities.getWindowAncestor(paneeli);
+        w.setVisible(false);
+
+        Kayttoliittyma uusiPeli = new Kayttoliittyma();
+        JFrame frame = new JFrame("Miinaharava");
+        frame.add(uusiPeli.getGui());
+        frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+        frame.setLocationByPlatform(true);
+        frame.pack();
+        frame.setMinimumSize(new Dimension(200, 100));
+        frame.setVisible(true);
+        System.out.println("voitto");
+    }
+
+    public void haviaJaSuljePeli() {
+        Window w = SwingUtilities.getWindowAncestor(paneeli);
+        w.setVisible(false);
+
+        Kayttoliittyma uusiPeli = new Kayttoliittyma();
+        JFrame frame = new JFrame("Miinaharava");
+        frame.add(uusiPeli.getGui());
+        frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+        frame.setLocationByPlatform(true);
+        frame.pack();
+        frame.setMinimumSize(new Dimension(200, 100));
+        frame.setVisible(true);
+        System.out.println("havio");
+    }
+
     public class Mouse implements MouseListener {
 
         @Override
@@ -102,7 +147,13 @@ public class MiinaPaneeli extends JFrame {
                     for (int j = 0; j < koko; j++) {
                         if (nappula == nappulat[k][j]) {
                             avataanRuutu(nappulat[k][j], k, j);
-                            break;
+                            if (voitto()) {
+                                voitaJaSuljePeli();
+                            } else if (havio()) {
+                                haviaJaSuljePeli();
+                            } else {
+                                break;
+                            }
                         }
                     }
                 }

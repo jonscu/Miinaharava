@@ -9,6 +9,8 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.*;
 import fi.jonna.mehtonen.domain.*;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  *
@@ -28,12 +30,13 @@ public class MiinaPaneeli extends JFrame {
     private int siirrot = 0;
     private int lippujaKaytetty = 0;
     private JTextArea lippuja;
-    private ImageIcon lippu;
+    private ImageIcon lippu, miina;
 
     public MiinaPaneeli(int koko, Pelilauta lauta) {
         super("Miinaharava");
         setResizable(false);
         this.lippu = new ImageIcon("C:\\Users\\jonscu\\Documents\\GitHub\\Miinaharava\\JonnanMiinaharava\\src\\main\\java\\fi\\jonna\\mehtonen\\lippu2.png");
+        this.miina = new ImageIcon("C:\\Users\\jonscu\\Documents\\GitHub\\Miinaharava\\JonnanMiinaharava\\src\\main\\java\\fi\\jonna\\mehtonen\\miina.png");
         this.miinoja = (koko * koko) / 5;
         this.lauta = lauta;
         this.koko = koko;
@@ -69,7 +72,9 @@ public class MiinaPaneeli extends JFrame {
      *
      */
     public void voitaJaSuljePeli() {
-        Window w = SwingUtilities.getWindowAncestor(paneeli);
+        avaaKokoLauta();
+        menu.setText("Voitto :)");
+        /*Window w = SwingUtilities.getWindowAncestor(paneeli);
         w.setVisible(false);
 
         Kayttoliittyma uusiPeli = new Kayttoliittyma();
@@ -80,15 +85,17 @@ public class MiinaPaneeli extends JFrame {
         frame.pack();
         frame.setMinimumSize(new Dimension(200, 100));
         frame.setVisible(true);
-        System.out.println("voitto");
+        System.out.println("voitto");*/
     }
 
     /**
-     * Jos peli voitetaan, suljetaan vanha peli ja aloitetaan uusi.
+     * Jos peli hävitään, suljetaan vanha peli ja aloitetaan uusi.
      *
      */
     public void haviaJaSuljePeli() {
-        Window w = SwingUtilities.getWindowAncestor(paneeli);
+        avaaKokoLauta();
+        menu.setText("Häviö :(");
+        /*Window w = SwingUtilities.getWindowAncestor(paneeli);
         w.setVisible(false);
 
         Kayttoliittyma uusiPeli = new Kayttoliittyma();
@@ -99,8 +106,16 @@ public class MiinaPaneeli extends JFrame {
         frame.pack();
         frame.setMinimumSize(new Dimension(200, 100));
         frame.setVisible(true);
-        System.out.println("havio");
+        System.out.println("havio");*/
 
+    }
+    
+    public void avaaKokoLauta() {
+        for (int k = 0; k < koko; k++) {
+            for (int j = 0; j < koko; j++) {
+                merkataanRuutuAvatuksi(nappulat[k][j], k, j);
+            }
+        }
     }
 
     /**
@@ -114,13 +129,14 @@ public class MiinaPaneeli extends JFrame {
     public void merkataanRuutuAvatuksi(JButton nappula, int rivi, int sarake) {
         ruudut[rivi][sarake].merkkaaRuutuAvatuksi();
         if (ruudut[rivi][sarake].isOnkoMiina()) {
-            nappula.setText("*");
+            nappula.setIcon(miina);
         } else {
             String luku = Integer.toString(ruudut[rivi][sarake].getArvo());
             nappula.setIcon(null);
             nappula.setText(luku);
+            nappula.setEnabled(false);
         }
-        nappula.setEnabled(false);
+
     }
 
     /**
@@ -154,7 +170,7 @@ public class MiinaPaneeli extends JFrame {
 
         @Override
         public void mouseClicked(MouseEvent tapahtuma) {
-            logiikka.avataanRuutu(tapahtuma);
+                logiikka.avataanRuutu(tapahtuma);
         }
 
         @Override
@@ -242,18 +258,15 @@ public class MiinaPaneeli extends JFrame {
                                 merkataanRuutuAvatuksi(nappulat[k][j], k, j);
                                 avaaNaapurit(nappulat[k][j], k, j, nappulat);
                                 siirrot++;
+                                break;
                             } else if (!ruudut[k][j].isOnkoLippu()) {
                                 merkataanRuutuAvatuksi(nappulat[k][j], k, j);
                                 avaaNaapurit(nappulat[k][j], k, j, nappulat);
                                 siirrot++;
-                                if (voitto()) {
-                                    voitaJaSuljePeli();
-                                } else if (havio()) {
-                                    haviaJaSuljePeli();
-                                } else {
-                                    break;
-                                }
+                                tarkistaPelinLoppuminen();
+                                break;
                             }
+                            
                         }
                     }
                 }
@@ -274,6 +287,14 @@ public class MiinaPaneeli extends JFrame {
                     }
                 }
 
+            }
+        }
+
+        public void tarkistaPelinLoppuminen() {
+            if (voitto()) {
+                voitaJaSuljePeli();
+            } else if (havio()) {
+                haviaJaSuljePeli();
             }
         }
 

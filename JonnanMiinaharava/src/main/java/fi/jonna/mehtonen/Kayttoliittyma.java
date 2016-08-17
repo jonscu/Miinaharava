@@ -83,7 +83,7 @@ public class Kayttoliittyma {
             public void actionPerformed(ActionEvent e) {
                 Window w = SwingUtilities.getWindowAncestor(gui);
                 w.setVisible(false);
-                pelaa(20);
+                pelaa(18);
             }
 
         };
@@ -123,8 +123,8 @@ public class Kayttoliittyma {
             miinaharava.setMinimumSize(new Dimension(600, 600));
         } else if (koko == 15) {
             miinaharava.setMinimumSize(new Dimension(900, 900));
-        } else if (koko == 20) {
-            miinaharava.setMinimumSize(new Dimension(1200, 1200));
+        } else if (koko == 18) {
+            miinaharava.setMinimumSize(new Dimension(1080, 1080));
         } else if (koko == 3) {
             miinaharava.setMinimumSize(new Dimension(180, 180));
         }

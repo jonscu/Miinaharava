@@ -54,6 +54,15 @@ public class RuutuTest {
     }
     
     @Test
+    public void poistaMiinaToimii() {
+        Ruutu ruutu = new Ruutu();
+        ruutu.asetaMiina();
+        ruutu.poistaMiina();
+        boolean vastaus = ruutu.isOnkoMiina();
+        assertEquals(false, vastaus);
+    }
+    
+    @Test
     public void alussaRuudullaEiLippua() {
         Ruutu ruutu = new Ruutu();
         boolean vastaus = ruutu.isOnkoLippu();

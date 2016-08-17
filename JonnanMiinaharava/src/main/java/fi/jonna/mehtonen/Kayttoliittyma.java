@@ -1,7 +1,6 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
+/**
+ * Kayttoliittyma luokassa luodaan aloitusikkuna, jossa valitaan pelin
+ * vaikeusaste. Tässä luokassa luodaan myös MiinaPaneeli.
  */
 package fi.jonna.mehtonen;
 
@@ -31,12 +30,19 @@ public class Kayttoliittyma {
         this.pelinLoppuminen = false;
         this.scan = new Scanner(System.in);
 
+        /**
+         * Luodaan alotusikkuna ja siihen nappulat eri vaikeusasteille.
+         *
+         */
         gui.setBorder(new EmptyBorder(10, 10, 5, 5));
         JToolBar tools = new JToolBar();
         tools.setFloatable(false);
         gui.add(tools, BorderLayout.PAGE_START);
 
-        // Helpon pelin nappula
+        /**
+         * Helpon pelin nappula.
+         *
+         */
         Action newGameAction = new AbstractAction("Helppo") {
 
             @Override
@@ -49,9 +55,11 @@ public class Kayttoliittyma {
         };
 
         tools.add(newGameAction);
-        //tools.addSeparator();
 
-        // Keskivaikean pelin nappula
+        /**
+         * Keskivaikean pelin nappula.
+         *
+         */
         Action newGameAction2 = new AbstractAction("Keskivaikea") {
 
             @Override
@@ -65,7 +73,10 @@ public class Kayttoliittyma {
 
         tools.add(newGameAction2);
 
-        // Vaikean pelin nappula
+        /**
+         * Vaikean pelin nappula.
+         *
+         */
         Action newGameAction3 = new AbstractAction("Vaikea") {
 
             @Override
@@ -78,15 +89,46 @@ public class Kayttoliittyma {
         };
 
         tools.add(newGameAction3);
+
+        /**
+         * Testi pelin nappula.
+         *
+         */
+        Action newGameAction4 = new AbstractAction("Testi") {
+
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                Window w = SwingUtilities.getWindowAncestor(gui);
+                w.setVisible(false);
+                pelaa(3);
+            }
+
+        };
+
+        tools.add(newGameAction4);
     }
 
+    /**
+     * Luodaan pelilauta ja sen grafiikat.
+     *
+     * @param koko Pelattavan miinaharavan koko.
+     */
     public void pelaa(int koko) {
         lauta = new Pelilauta(koko);
 
         MiinaPaneeli miinaharava = new MiinaPaneeli(koko, lauta);
         miinaharava.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         miinaharava.pack();
-        miinaharava.setMinimumSize(new Dimension(600, 600));
+        if (koko == 10) {
+            miinaharava.setMinimumSize(new Dimension(600, 600));
+        } else if (koko == 15) {
+            miinaharava.setMinimumSize(new Dimension(900, 900));
+        } else if (koko == 20) {
+            miinaharava.setMinimumSize(new Dimension(1200, 1200));
+        } else if (koko == 3) {
+            miinaharava.setMinimumSize(new Dimension(180, 180));
+        }
+
         miinaharava.setVisible(true);
     }
 

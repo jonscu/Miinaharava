@@ -75,11 +75,31 @@ public class PelilautaTest {
         int vastaus = lauta.getKoko();
         assertEquals(20, vastaus);
     }
-    
+
     @Test
     public void naapurissaMiinojaOikeaMaara() {
         Pelilauta lauta = new Pelilauta(3);
         int vastaus = lauta.montaMiinaaNaapurissa(1, 1);
         assertEquals(1, vastaus);
+    }
+
+    @Test
+    public void siirraMiinaToimii() {
+        Pelilauta lauta = new Pelilauta(5);
+        Ruutu[][] ruudut = lauta.getRuudut();
+        int rivi = 0;
+        int sarake = 0;
+        for (int k = 0; k < 5; k++) {
+            for (int j = 0; j < 5; j++) {
+                if (ruudut[k][j].isOnkoMiina()) {
+                    rivi = k;
+                    sarake = j;
+                    break;
+                }
+            }
+        }
+        lauta.siirraMiina(rivi, sarake);
+        boolean vastaus = ruudut[rivi][sarake].isOnkoMiina();
+        assertEquals(false, vastaus);
     }
 }

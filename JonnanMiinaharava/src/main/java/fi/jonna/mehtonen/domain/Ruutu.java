@@ -1,7 +1,7 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
+/**
+ * Ruutu -luokka asettaa ja palauttaa tietyn ruudun
+ * sisältämät tiedot.
+ * 
  */
 package fi.jonna.mehtonen.domain;
 
@@ -26,6 +26,10 @@ public class Ruutu {
         this.onkoMiina = true;
     }
 
+    public void poistaMiina() {
+        this.onkoMiina = false;
+    }
+
     public void setArvo(int arvo) {
         this.arvo = arvo;
     }
@@ -41,7 +45,7 @@ public class Ruutu {
     public void asetaLippu() {
         onkoLippu = true;
     }
-    
+
     public void poistaLippu() {
         onkoLippu = false;
     }

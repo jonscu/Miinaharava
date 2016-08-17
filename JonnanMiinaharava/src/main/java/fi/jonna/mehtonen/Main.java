@@ -5,6 +5,7 @@
  */
 package fi.jonna.mehtonen;
 
+import fi.jonna.mehtonen.domain.Ruutu;
 import java.awt.Dimension;
 import javax.swing.JFrame;
 
@@ -19,10 +20,10 @@ public class Main {
 
         JFrame frame = new JFrame("Miinaharava");
         frame.add(liittyma.getGui());
-        frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.setLocationByPlatform(true);
         frame.pack();
-        frame.setMinimumSize(new Dimension(200,100));
+        frame.setMinimumSize(new Dimension(200, 100));
         frame.setVisible(true);
     }
 }

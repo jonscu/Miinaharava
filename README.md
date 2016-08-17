@@ -11,4 +11,4 @@ Miinaharavassa käytössä on pelilauta, jonka kaikki ruudut ovat alussa paljast
 
 [Checkstyle-raportti](https://htmlpreview.github.io/?https://github.com/jonscu/Miinaharava/blob/master/Dokumentaatio/checkstyle-raportti/site/checkstyle.html)
 
-[JavaDoc](https://htmlpreview.github.io/?https://github.com/jonscu/Miinaharava/blob/master/Dokumentaatio/Javadoc/apidocs/allclasses-frame.html)
+[JavaDoc-raportti](https://htmlpreview.github.io/?https://github.com/jonscu/Miinaharava/blob/master/Dokumentaatio/Javadoc/apidocs/allclasses-frame.html)

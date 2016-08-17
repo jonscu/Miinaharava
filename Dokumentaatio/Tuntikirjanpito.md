@@ -11,3 +11,9 @@ Päivä | Tunnit | Kuvaus
 08.8.2016| 5.0h  | Koodia
 09.8.2016| 5.0h  | Koodia + testiä
 10.8.2016| 3.0h  | Pit, Checkstyle, Readme ja palautus
+12.8.2016| 5.0h  | Testien lisäystä ja koodin siivousta
+13.8.2016| 4.0h  | Grafiikan luomista
+14.8.2016| 3.0h  | Grafiikan luomista
+15.8.2016| 5.0h  | Grafiikan luomista ja logiikan päivitystä
+16.8.2016| 4.0h  | Grafiikan luomista ja logiikan päivitystä
+17.8.2016| 3.0h  | Pit, Checkstyle, Readme, javadoc ja palautus

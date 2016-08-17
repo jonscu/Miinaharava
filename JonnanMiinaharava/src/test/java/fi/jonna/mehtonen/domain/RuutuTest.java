@@ -41,7 +41,7 @@ public class RuutuTest {
     @Test
     public void ruudunAsetaMiinaToimii() {
         Ruutu ruutu = new Ruutu();
-        ruutu.asetaMiina();
+        ruutu.setMiina();
         boolean vastaus = ruutu.isOnkoMiina();
         assertEquals(true, vastaus);
     }
@@ -56,7 +56,7 @@ public class RuutuTest {
     @Test
     public void poistaMiinaToimii() {
         Ruutu ruutu = new Ruutu();
-        ruutu.asetaMiina();
+        ruutu.setMiina();
         ruutu.poistaMiina();
         boolean vastaus = ruutu.isOnkoMiina();
         assertEquals(false, vastaus);
@@ -79,7 +79,7 @@ public class RuutuTest {
     @Test
     public void poistaLippuToimii() {
         Ruutu ruutu = new Ruutu();
-        ruutu.asetaLippu();
+        ruutu.setLippu();
         ruutu.poistaLippu();
         boolean vastaus = ruutu.isOnkoLippu();
         assertEquals(false, vastaus);
@@ -88,7 +88,7 @@ public class RuutuTest {
     @Test
     public void asetaLippuToimii() {
         Ruutu ruutu = new Ruutu();
-        ruutu.asetaLippu();
+        ruutu.setLippu();
         boolean vastaus = ruutu.isOnkoLippu();
         assertEquals(true, vastaus);
     }

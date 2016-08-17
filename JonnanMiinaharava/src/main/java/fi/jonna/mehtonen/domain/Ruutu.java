@@ -1,15 +1,12 @@
-/**
- * Ruutu -luokka asettaa ja palauttaa tietyn ruudun
- * sisältämät tiedot.
- * 
- */
+
 package fi.jonna.mehtonen.domain;
 
 import javax.swing.JButton;
 
 /**
- *
- * @author jonscu
+ * Ruutu -luokka asettaa ja palauttaa tietyn ruudun
+ * sisältämät tiedot.
+ * 
  */
 public class Ruutu {
 
@@ -22,10 +19,16 @@ public class Ruutu {
         return onkoMiina;
     }
 
-    public void asetaMiina() {
+    /**
+     * Asetetaan ruutuun miina.
+     */
+    public void setMiina() {
         this.onkoMiina = true;
     }
 
+    /** 
+     * Jos ruudussa oli miina, otetaan se pois.
+     */
     public void poistaMiina() {
         this.onkoMiina = false;
     }
@@ -38,14 +41,24 @@ public class Ruutu {
         return arvo;
     }
 
+    /**
+     * Tarkistetaan oliko ruudussa lippu.
+     * @return palautetaan false, jos ei ollut lippua, ja true, jos oli.
+     */
     public boolean isOnkoLippu() {
         return onkoLippu;
     }
 
-    public void asetaLippu() {
+    /**
+     * Asetetaan ruutuun lippu, jos siinä ei ollut.
+     */
+    public void setLippu() {
         onkoLippu = true;
     }
 
+    /**
+     * Jos ruudussa oli lippu, otetaan se pois.
+     */
     public void poistaLippu() {
         onkoLippu = false;
     }
@@ -54,6 +67,9 @@ public class Ruutu {
         return onkoAvattu;
     }
 
+    /**
+     * Merkataan, että ruutu on avattu.
+     */
     public void merkkaaRuutuAvatuksi() {
         onkoAvattu = true;
     }

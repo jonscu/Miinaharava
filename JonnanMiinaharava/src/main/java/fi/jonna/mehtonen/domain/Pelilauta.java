@@ -1,15 +1,12 @@
-/**
- * Pelilauta luokka alustaa itse pelilaudan, luomalla ruudut, 
- * asettamalla niihin arvot ja asettamalla miinat.
- */
+
 package fi.jonna.mehtonen.domain;
 
 import fi.jonna.mehtonen.domain.Ruutu;
 import java.util.Random;
 
 /**
- *
- * @author jonscu
+ * Pelilauta luokka alustaa itse pelilaudan luomalla ruudut, 
+ * asettamalla niihin arvot ja asettamalla miinat.
  */
 public class Pelilauta {
 
@@ -17,6 +14,12 @@ public class Pelilauta {
     private Ruutu[][] ruudut;
     private Random rnd;
 
+    /**
+     * Konstruktorissa asetetaan laudan koko halutuksi, luodaan random ja
+     * Ruutu -matriisi oliot sekä alustetaan pelilauta.
+     * 
+     * @param laudanKoko Pelilaudan haluttu koko.
+     */
     public Pelilauta(int laudanKoko) {
         this.koko = laudanKoko;
         this.rnd = new Random();
@@ -24,8 +27,8 @@ public class Pelilauta {
         alustaPelilauta();
     }
 
-    /** Luodaan ruudut, sijoitetaan randomisti miinat ja asetetaan miinattomille
-     * ruuduille arvot.
+    /** Luodaan ruudut, sijoitetaan miinat random generaattorin avulla ja 
+     * asetetaan miinattomille ruuduille arvot.
      */
     public void alustaPelilauta() {
         luoRuudut();
@@ -44,7 +47,7 @@ public class Pelilauta {
         }
     }
 
-    /** Arvotaan miinoille paikat pelissa.
+    /** Arvotaan miinoille paikat pelissä.
      * 
      */
     public void asetaMiinat() {
@@ -57,7 +60,7 @@ public class Pelilauta {
             if (ruudut[i][j].isOnkoMiina()) {
                 k--;
             } else {
-                ruudut[i][j].asetaMiina();
+                ruudut[i][j].setMiina();
             }
         }
     }
@@ -75,7 +78,7 @@ public class Pelilauta {
             int uusiSarake = rnd.nextInt(koko);
             if (!ruudut[uusiRivi][uusiSarake].isOnkoMiina()) {
                 ruudut[rivi][sarake].poistaMiina();
-                ruudut[uusiRivi][uusiSarake].asetaMiina();
+                ruudut[uusiRivi][uusiSarake].setMiina();
                 asetaRuuduilleArvot();
                 siirretty = true;
             }

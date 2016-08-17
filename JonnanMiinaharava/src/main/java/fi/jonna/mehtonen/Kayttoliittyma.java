@@ -1,7 +1,4 @@
-/**
- * Kayttoliittyma luokassa luodaan aloitusikkuna, jossa valitaan pelin
- * vaikeusaste. Tässä luokassa luodaan myös MiinaPaneeli.
- */
+
 package fi.jonna.mehtonen;
 
 import fi.jonna.mehtonen.domain.Pelilauta;
@@ -14,8 +11,8 @@ import javax.swing.*;
 import javax.swing.border.EmptyBorder;
 
 /**
- *
- * @author jonscu
+ * Kayttoliittyma luokassa luodaan aloitusikkuna, jossa valitaan pelin
+ * vaikeusaste. Tässä luokassa luodaan myös MiinaPaneeli.
  */
 public class Kayttoliittyma {
 
@@ -38,6 +35,23 @@ public class Kayttoliittyma {
         JToolBar tools = new JToolBar();
         tools.setFloatable(false);
         gui.add(tools, BorderLayout.PAGE_START);
+
+        /**
+         * Testi pelin nappula.
+         *
+         */
+        Action newGameAction4 = new AbstractAction("Tosi helppo") {
+
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                Window w = SwingUtilities.getWindowAncestor(gui);
+                w.setVisible(false);
+                pelaa(3);
+            }
+
+        };
+
+        tools.add(newGameAction4);
 
         /**
          * Helpon pelin nappula.
@@ -89,23 +103,6 @@ public class Kayttoliittyma {
         };
 
         tools.add(newGameAction3);
-
-        /**
-         * Testi pelin nappula.
-         *
-         */
-        Action newGameAction4 = new AbstractAction("Testi") {
-
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                Window w = SwingUtilities.getWindowAncestor(gui);
-                w.setVisible(false);
-                pelaa(3);
-            }
-
-        };
-
-        tools.add(newGameAction4);
     }
 
     /**
@@ -126,7 +123,7 @@ public class Kayttoliittyma {
         } else if (koko == 18) {
             miinaharava.setMinimumSize(new Dimension(1080, 1080));
         } else if (koko == 3) {
-            miinaharava.setMinimumSize(new Dimension(180, 180));
+            miinaharava.setMinimumSize(new Dimension(200, 200));
         }
 
         miinaharava.setVisible(true);

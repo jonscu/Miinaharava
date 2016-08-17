@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package fi.jonna.mehtonen;
 
 import fi.jonna.mehtonen.domain.Ruutu;
@@ -10,11 +5,15 @@ import java.awt.Dimension;
 import javax.swing.JFrame;
 
 /**
- *
- * @author jonscu
+ * Main -luokassa aloitetaan peli luomalla käyttöliittymä, ja luomalla
+ * aloitusikkunan frame.
  */
 public class Main {
 
+    /**
+     * Luodaan käyttöliittymä ja aloitusikkunan frame.
+     * @param args on joku main metodin juttu.
+     */
     public static void main(String[] args) {
         Kayttoliittyma liittyma = new Kayttoliittyma();
 

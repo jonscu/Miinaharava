@@ -68,10 +68,10 @@ public class MiinaPaneeli extends JFrame {
     }
 
     /**
-     * Jos peli voitetaan, suljetaan vanha peli ja aloitetaan uusi.
+     * Jos peli voitetaan, tulee siitä ilmoitus yläpaneeliin.
      *
      */
-    public void voitaJaSuljePeli() {
+    public void voitaPeli() {
         avaaKokoLauta();
         menu.setText("Voitto :)");
         /*Window w = SwingUtilities.getWindowAncestor(paneeli);
@@ -89,10 +89,10 @@ public class MiinaPaneeli extends JFrame {
     }
 
     /**
-     * Jos peli hävitään, suljetaan vanha peli ja aloitetaan uusi.
-     *
+     * Jos peli hävitään, tulee siitä ilmoitus yläpaneeliin.
+     * Lisäksi peli aukaisee jäljelle jääneet ruudut.
      */
-    public void haviaJaSuljePeli() {
+    public void haviaPeli() {
         avaaKokoLauta();
         menu.setText("Häviö :(");
         /*Window w = SwingUtilities.getWindowAncestor(paneeli);
@@ -110,6 +110,9 @@ public class MiinaPaneeli extends JFrame {
 
     }
     
+    /**
+     * Metodi avaa pelilaudan kaikki ruudut.
+     */
     public void avaaKokoLauta() {
         for (int k = 0; k < koko; k++) {
             for (int j = 0; j < koko; j++) {
@@ -149,7 +152,7 @@ public class MiinaPaneeli extends JFrame {
     public void asetaLippu(JButton nappula, int rivi, int sarake) {
         menu.setText("Lippuja " + lippujaKaytetty + "/" + miinoja);
         nappula.setIcon(lippu);
-        ruudut[rivi][sarake].asetaLippu();
+        ruudut[rivi][sarake].setLippu();
     }
 
     /**
@@ -221,7 +224,7 @@ public class MiinaPaneeli extends JFrame {
         }
 
         /**
-         * Tarkistetaan, onko peli hävitty. Peli havitaan, jos kayttaja avaa
+         * Tarkistetaan, onko peli hävitty. Peli hävitään, jos käyttäjä avaa
          * ruudun, jossa on miina.
          *
          * @return true, jos peli hävittiin, muulloin false.
@@ -290,11 +293,15 @@ public class MiinaPaneeli extends JFrame {
             }
         }
 
+        /**
+         * Metodi kutsuu voitaPeli, jos peli voitettiin.
+         * Jos peli hävittiin, niin se kutsuu haviaPeli metodia.
+         */
         public void tarkistaPelinLoppuminen() {
             if (voitto()) {
-                voitaJaSuljePeli();
+                voitaPeli();
             } else if (havio()) {
-                haviaJaSuljePeli();
+                haviaPeli();
             }
         }
 

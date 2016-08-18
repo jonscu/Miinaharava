@@ -17,14 +17,10 @@ import javax.swing.border.EmptyBorder;
 public class Kayttoliittyma {
 
     private Pelilauta lauta;
-    private Boolean voitto;
-    private Boolean pelinLoppuminen;
     private Scanner scan;
     private final JPanel gui = new JPanel(new BorderLayout(3, 3));
 
     public Kayttoliittyma() {
-        this.voitto = false;
-        this.pelinLoppuminen = false;
         this.scan = new Scanner(System.in);
 
         /**

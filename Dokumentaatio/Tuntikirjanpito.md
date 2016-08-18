@@ -17,3 +17,4 @@ Päivä | Tunnit | Kuvaus
 15.8.2016| 5.0h  | Grafiikan luomista ja logiikan päivitystä
 16.8.2016| 4.0h  | Grafiikan luomista ja logiikan päivitystä
 17.8.2016| 3.0h  | Pit, Checkstyle, Readme, javadoc ja palautus
+18.8.2016| 2.5h  | Koodin viimeistely, uudet pit ja checkstyle

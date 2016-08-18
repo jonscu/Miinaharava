@@ -18,7 +18,7 @@ public class Main {
         Kayttoliittyma liittyma = new Kayttoliittyma();
 
         JFrame frame = new JFrame("Miinaharava");
-        frame.add(liittyma.getGui());
+        frame.add(liittyma.getAlkuvalikko());
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.setLocationByPlatform(true);
         frame.pack();

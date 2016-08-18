@@ -18,7 +18,7 @@ public class Kayttoliittyma {
 
     private Pelilauta lauta;
     private Scanner scan;
-    private final JPanel gui = new JPanel(new BorderLayout(3, 3));
+    private final JPanel alkuvalikko = new JPanel(new BorderLayout(3, 3));
 
     public Kayttoliittyma() {
         this.scan = new Scanner(System.in);
@@ -27,78 +27,78 @@ public class Kayttoliittyma {
          * Luodaan alotusikkuna ja siihen nappulat eri vaikeusasteille.
          *
          */
-        gui.setBorder(new EmptyBorder(10, 10, 5, 5));
+        alkuvalikko.setBorder(new EmptyBorder(10, 10, 5, 5));
         JToolBar tools = new JToolBar();
         tools.setFloatable(false);
-        gui.add(tools, BorderLayout.PAGE_START);
+        alkuvalikko.add(tools, BorderLayout.PAGE_START);
 
         /**
          * Testi pelin nappula.
          *
          */
-        Action newGameAction4 = new AbstractAction("Tosi helppo") {
+        Action tosiHelppo = new AbstractAction("Tosi helppo") {
 
             @Override
             public void actionPerformed(ActionEvent e) {
-                Window w = SwingUtilities.getWindowAncestor(gui);
+                Window w = SwingUtilities.getWindowAncestor(alkuvalikko);
                 w.setVisible(false);
                 pelaa(3);
             }
 
         };
 
-        tools.add(newGameAction4);
+        tools.add(tosiHelppo);
 
         /**
          * Helpon pelin nappula.
          *
          */
-        Action newGameAction = new AbstractAction("Helppo") {
+        Action helppo = new AbstractAction("Helppo") {
 
             @Override
             public void actionPerformed(ActionEvent e) {
-                Window w = SwingUtilities.getWindowAncestor(gui);
+                Window w = SwingUtilities.getWindowAncestor(alkuvalikko);
                 w.setVisible(false);
                 pelaa(10);
             }
 
         };
 
-        tools.add(newGameAction);
+        tools.add(helppo);
 
         /**
          * Keskivaikean pelin nappula.
          *
          */
-        Action newGameAction2 = new AbstractAction("Keskivaikea") {
+        Action keskivaikea = new AbstractAction("Keskivaikea") {
 
             @Override
             public void actionPerformed(ActionEvent e) {
-                Window w = SwingUtilities.getWindowAncestor(gui);
+                Window w = SwingUtilities.getWindowAncestor(alkuvalikko);
                 w.setVisible(false);
                 pelaa(15);
             }
 
         };
 
-        tools.add(newGameAction2);
+        tools.add(keskivaikea);
 
         /**
          * Vaikean pelin nappula.
          *
          */
-        Action newGameAction3 = new AbstractAction("Vaikea") {
+        Action vaikea = new AbstractAction("Vaikea") {
 
             @Override
             public void actionPerformed(ActionEvent e) {
-                Window w = SwingUtilities.getWindowAncestor(gui);
+                Window w = SwingUtilities.getWindowAncestor(alkuvalikko);
                 w.setVisible(false);
                 pelaa(18);
             }
 
         };
 
-        tools.add(newGameAction3);
+        tools.add(vaikea);
     }
 
     /**
@@ -125,8 +125,8 @@ public class Kayttoliittyma {
         miinaharava.setVisible(true);
     }
 
-    public JPanel getGui() {
-        return gui;
+    public JPanel getAlkuvalikko() {
+        return alkuvalikko;
     }
 
 }

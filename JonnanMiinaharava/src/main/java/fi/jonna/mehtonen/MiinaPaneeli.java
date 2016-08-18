@@ -81,7 +81,7 @@ public class MiinaPaneeli extends JFrame {
 
                 Kayttoliittyma uusiPeli = new Kayttoliittyma();
                 JFrame frame = new JFrame("Miinaharava");
-                frame.add(uusiPeli.getGui());
+                frame.add(uusiPeli.getAlkuvalikko());
                 frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
                 frame.setLocationByPlatform(true);
                 frame.pack();

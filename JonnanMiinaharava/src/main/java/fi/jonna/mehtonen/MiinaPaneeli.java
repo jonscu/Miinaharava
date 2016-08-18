@@ -1,8 +1,4 @@
-/**
- * MiinaPaneeli luokassa rakennetaan pelin grafiikkaruudukko. Luokka sisältää
- * myös logiikkaluokan, jossa tarkastellaan, mitä tehdään, kun painetaan hiiren
- * oikeata tai vasenta klikkiä sekä onko peli voitettu tai hävitty.
- */
+
 package fi.jonna.mehtonen;
 
 import javax.swing.*;
@@ -13,8 +9,9 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 
 /**
- *
- * @author jonscu
+ * MiinaPaneeli luokassa rakennetaan pelin grafiikkaruudukko. Luokka sisältää
+ * myös logiikkaluokan, jossa tarkastellaan, mitä tehdään, kun painetaan hiiren
+ * oikeata tai vasenta klikkiä sekä onko peli voitettu tai hävitty.
  */
 public class MiinaPaneeli extends JFrame {
 

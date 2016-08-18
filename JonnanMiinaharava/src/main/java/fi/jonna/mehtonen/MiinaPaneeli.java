@@ -18,11 +18,11 @@ import java.util.logging.Logger;
  */
 public class MiinaPaneeli extends JFrame {
 
-    private int koko;
-    private int miinoja;
+    private int koko, miinoja;
     private JPanel paneeli = new JPanel();
     private JMenuBar ylaPaneeli = new JMenuBar();
     private JMenu menu = new JMenu();
+    private JMenu valikko;
     private JButton[][] nappulat;
     private Pelilauta lauta;
     private Ruutu[][] ruudut;
@@ -31,6 +31,7 @@ public class MiinaPaneeli extends JFrame {
     private int lippujaKaytetty = 0;
     private JTextArea lippuja;
     private ImageIcon lippu, miina;
+    private JLabel teksti;
 
     public MiinaPaneeli(int koko, Pelilauta lauta) {
         super("Miinaharava");
@@ -42,9 +43,8 @@ public class MiinaPaneeli extends JFrame {
         this.koko = koko;
         ruudut = lauta.getRuudut();
         logiikka = new Logiikka();
-        menu.setText("Lippuja " + lippujaKaytetty + "/" + miinoja);
-        ylaPaneeli.add(menu);
-        setJMenuBar(ylaPaneeli);
+        teksti = new JLabel("Lippuja " + lippujaKaytetty + "/" + miinoja, JLabel.RIGHT);
+        asetaMenu();
         luoNappulat();
     }
 
@@ -68,48 +68,68 @@ public class MiinaPaneeli extends JFrame {
     }
 
     /**
+     * Asetetaan pelilaudan yläpuolelle JMenu valikko, joka sisältää
+     * uusi peli ja sulje peli. Lisäksi luodaan tekstikenttä, jossa on käytettyjen
+     * lippujen määrä.
+     */
+    public void asetaMenu() {
+        valikko = new JMenu("Valikko");
+
+        Action uusiPeli = new AbstractAction("Uusi peli") {
+
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                Window w = SwingUtilities.getWindowAncestor(paneeli);
+                w.setVisible(false);
+
+                Kayttoliittyma uusiPeli = new Kayttoliittyma();
+                JFrame frame = new JFrame("Miinaharava");
+                frame.add(uusiPeli.getGui());
+                frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+                frame.setLocationByPlatform(true);
+                frame.pack();
+                frame.setMinimumSize(new Dimension(200, 100));
+                frame.setVisible(true);
+            }
+
+        };
+        valikko.add(uusiPeli);
+
+        Action sulje = new AbstractAction("Sulje peli") {
+
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                System.exit(0);
+            }
+
+        };
+        valikko.add(sulje);
+        ylaPaneeli.add(valikko);
+
+        ylaPaneeli.add(teksti);
+        ylaPaneeli.add(menu);
+        setJMenuBar(ylaPaneeli);
+    }
+
+    /**
      * Jos peli voitetaan, tulee siitä ilmoitus yläpaneeliin.
      *
      */
     public void voitaPeli() {
         avaaKokoLauta();
-        menu.setText("Voitto :)");
-        /*Window w = SwingUtilities.getWindowAncestor(paneeli);
-        w.setVisible(false);
-
-        Kayttoliittyma uusiPeli = new Kayttoliittyma();
-        JFrame frame = new JFrame("Miinaharava");
-        frame.add(uusiPeli.getGui());
-        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        frame.setLocationByPlatform(true);
-        frame.pack();
-        frame.setMinimumSize(new Dimension(200, 100));
-        frame.setVisible(true);
-        System.out.println("voitto");*/
+        ylaPaneeli.add(new JLabel("Voitto!", JLabel.RIGHT));
     }
 
     /**
-     * Jos peli hävitään, tulee siitä ilmoitus yläpaneeliin.
-     * Lisäksi peli aukaisee jäljelle jääneet ruudut.
+     * Jos peli hävitään, tulee siitä ilmoitus yläpaneeliin. Lisäksi peli
+     * aukaisee jäljelle jääneet ruudut.
      */
     public void haviaPeli() {
         avaaKokoLauta();
-        menu.setText("Häviö :(");
-        /*Window w = SwingUtilities.getWindowAncestor(paneeli);
-        w.setVisible(false);
-
-        Kayttoliittyma uusiPeli = new Kayttoliittyma();
-        JFrame frame = new JFrame("Miinaharava");
-        frame.add(uusiPeli.getGui());
-        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        frame.setLocationByPlatform(true);
-        frame.pack();
-        frame.setMinimumSize(new Dimension(200, 100));
-        frame.setVisible(true);
-        System.out.println("havio");*/
+        ylaPaneeli.add(new JLabel("Häviö!", JLabel.RIGHT));
 
     }
-    
+
     /**
      * Metodi avaa pelilaudan kaikki ruudut.
      */
@@ -150,7 +170,7 @@ public class MiinaPaneeli extends JFrame {
      * @param sarake nappulan sarake sijainti.
      */
     public void asetaLippu(JButton nappula, int rivi, int sarake) {
-        menu.setText("Lippuja " + lippujaKaytetty + "/" + miinoja);
+        teksti.setText("Lippuja " + lippujaKaytetty + "/" + miinoja);
         nappula.setIcon(lippu);
         ruudut[rivi][sarake].setLippu();
     }
@@ -163,7 +183,7 @@ public class MiinaPaneeli extends JFrame {
      * @param sarake nappulan sarake sijainti.
      */
     public void poistaLippu(JButton nappula, int rivi, int sarake) {
-        menu.setText("Lippuja " + lippujaKaytetty + "/" + miinoja);
+        teksti.setText("Lippuja " + lippujaKaytetty + "/" + miinoja);
         nappula.setIcon(null);
         ruudut[rivi][sarake].poistaLippu();
         nappula.setEnabled(true);
@@ -173,7 +193,7 @@ public class MiinaPaneeli extends JFrame {
 
         @Override
         public void mouseClicked(MouseEvent tapahtuma) {
-                logiikka.avataanRuutu(tapahtuma);
+            logiikka.avataanRuutu(tapahtuma);
         }
 
         @Override
@@ -264,12 +284,14 @@ public class MiinaPaneeli extends JFrame {
                                 break;
                             } else if (!ruudut[k][j].isOnkoLippu()) {
                                 merkataanRuutuAvatuksi(nappulat[k][j], k, j);
-                                avaaNaapurit(nappulat[k][j], k, j, nappulat);
+                                if (ruudut[k][j].getArvo() == 0) {
+                                    avaaNaapurit(nappulat[k][j], k, j, nappulat);
+                                }
                                 siirrot++;
                                 tarkistaPelinLoppuminen();
                                 break;
                             }
-                            
+
                         }
                     }
                 }
@@ -294,8 +316,8 @@ public class MiinaPaneeli extends JFrame {
         }
 
         /**
-         * Metodi kutsuu voitaPeli, jos peli voitettiin.
-         * Jos peli hävittiin, niin se kutsuu haviaPeli metodia.
+         * Metodi kutsuu voitaPeli, jos peli voitettiin. Jos peli hävittiin,
+         * niin se kutsuu haviaPeli metodia.
          */
         public void tarkistaPelinLoppuminen() {
             if (voitto()) {
@@ -327,6 +349,8 @@ public class MiinaPaneeli extends JFrame {
                         if (!ruudut[uusiRivi][uusiSarake].isOnkoAvattu() && ruudut[uusiRivi][uusiSarake].getArvo() == 0 && !ruudut[uusiRivi][uusiSarake].isOnkoMiina()) {
                             merkataanRuutuAvatuksi(nappulat[uusiRivi][uusiSarake], uusiRivi, uusiSarake);
                             avaaNaapurit(nappulat[uusiRivi][uusiSarake], uusiRivi, uusiSarake, nappulat);
+                        } else if (ruudut[rivi][sarake].getArvo() == 0 && !ruudut[uusiRivi][uusiSarake].isOnkoAvattu() && ruudut[uusiRivi][uusiSarake].getArvo() != 0 && !ruudut[uusiRivi][uusiSarake].isOnkoMiina()) {
+                            merkataanRuutuAvatuksi(nappulat[uusiRivi][uusiSarake], uusiRivi, uusiSarake);
                         }
                     }
                 }

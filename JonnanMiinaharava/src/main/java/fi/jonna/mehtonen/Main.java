@@ -1,5 +1,6 @@
 package fi.jonna.mehtonen;
 
+import fi.jonna.mehtonen.kayttoliittyma.Kayttoliittyma;
 import fi.jonna.mehtonen.domain.Ruutu;
 import java.awt.Dimension;
 import javax.swing.JFrame;

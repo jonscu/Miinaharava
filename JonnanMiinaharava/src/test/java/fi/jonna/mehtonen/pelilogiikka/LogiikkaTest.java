@@ -8,6 +8,7 @@ package fi.jonna.mehtonen.pelilogiikka;
 import fi.jonna.mehtonen.domain.Pelilauta;
 import fi.jonna.mehtonen.domain.Ruutu;
 import fi.jonna.mehtonen.kayttoliittyma.MiinaPaneeli;
+import java.awt.event.MouseEvent;
 import javax.swing.JButton;
 import org.junit.After;
 import org.junit.AfterClass;

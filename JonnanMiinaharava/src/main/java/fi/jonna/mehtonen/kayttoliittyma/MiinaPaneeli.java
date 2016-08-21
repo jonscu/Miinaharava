@@ -187,6 +187,10 @@ public class MiinaPaneeli extends JFrame {
         return nappulat;
     }
 
+    public Pelilauta getLauta() {
+        return lauta;
+    }
+
     public class Mouse implements MouseListener {
 
         @Override

@@ -9,9 +9,9 @@ nappi aloittaa taas pelin, jonka koko on 10x10 ja sisältää 20 miinaa. Keskiva
 sisältää 45 miinaa. Vaikean pelin koko on 18, ja se sisältää 64 miinaa. Vaikeustason valinnan jälkeen käyttöliittymä luokka luo Pelilauta olion ja Miinapaneeli olion, jolle annetaan parametrina pelilaudan 
 koko ja Pelilauta olio. 
 
-**Pelilauta** olio alustaa konstruktorissa itsensä, eli se luo ensin koon mukaan Ruutu -olio matriisin, asettaa
-näille luoduille ruuduille arvot sen mukaan, kuinka monta miinaa on naapurissa sekä asettaa satunnaisiin ruutuihin
-miinat. Lisäksi Pelilaudalla voi siirtää miinan paikkaa. Miinaa siirretään vain silloin, kun käyttäjä avaa ensimmäisen
+**RuudukonAlustus** luo Ruutu matriisin, joka on halutun pelilaudan kokoinen sekä asettaa satunnaisiin ruutuihin miinat.
+
+**Pelilauta** asettaa RuudukonAlustus luokassa luoduille ruuduille arvot sen mukaan, kuinka monta miinaa on naapurissa. Lisäksi Pelilaudalla voi siirtää miinan paikkaa. Miinaa siirretään vain silloin, kun käyttäjä avaa ensimmäisen
 ruudun, ja siinä on miina. Tämä tarkistus tehdään Logiikka luokassa. Käyttäjä ei kuitenkaan huomaa tätä siirtoa, joten peli jatkuu normaalisti.
 
 **Ruutu** luokka sisältää tiedot, että onko kyseisessä ruudussa miina, lippu tai onko se avattu. Lisäksi Ruudussa
@@ -21,7 +21,8 @@ asettaa lipun, poistaa lipun ja merkata ruudun avatuksi.
 **MiinaPaneeli** luokassa luodaan miinaharava pelin grafiikat. Konstruktorissa luodaan pelille JMenu valikko 
 ylänurkkaan, joka sisältää uusi peli ja sulje peli nappulat, ja lisäksi luodaan JButton matriisi, joka on pelilaudan kokoinen.
 Kun jotain näistä JButtoneista painetaan, Logiikka ja MouseListener luokkien avulla tarkistetaan painoiko käyttäjä vasenta vai oikeaa hiiren näppäintä. 
-  
+
+**Logiikka** luokassa tarkastetaan, mitä tapahtuu kun painetaan hiiren vasenta tai oikeaa näppäintä.  
 Jos käyttäjä painoi vasenta näppäintä, niin nappula avataan, jolloin paljastuu ruudun naapureissa olevien miinojen määrä.
 Jos käyttäjä painoi oikeaa näppäintä, niin nappulan kohdalle laitetaan lippu. Lipun voi ottaa pois painamalla uudestaan
 oikeaa näppäintä. Jokaisen vasemman näppäimen painalluksen jälkeen tarkistetaan, onko peli voitettu tai hävitty.

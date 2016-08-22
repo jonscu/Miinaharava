@@ -27,8 +27,9 @@ public class MiinaPaneeli extends JFrame {
     public MiinaPaneeli(int koko, Pelilauta lauta) {
         super("Miinaharava");
         setResizable(false);
-        this.lippu = new ImageIcon("C:\\Users\\jonscu\\Documents\\GitHub\\Miinaharava\\JonnanMiinaharava\\src\\main\\java\\fi\\jonna\\mehtonen\\lippu2.png");
-        this.miina = new ImageIcon("C:\\Users\\jonscu\\Documents\\GitHub\\Miinaharava\\JonnanMiinaharava\\src\\main\\java\\fi\\jonna\\mehtonen\\miina.png");
+        ClassLoader cl = this.getClass().getClassLoader();
+        this.lippu = new ImageIcon(cl.getResource("images/lippu2.png"));
+        this.miina = new ImageIcon(cl.getResource("images/miina.png"));
         this.miinoja = (koko * koko) / 5;
         this.lauta = lauta;
         this.koko = koko;
@@ -36,7 +37,7 @@ public class MiinaPaneeli extends JFrame {
         teksti = new JLabel("Lippuja 0/" + miinoja, JLabel.RIGHT);
         asetaMenu();
         luoNappulat();
-        logiikka = new Logiikka(koko, lauta, miinoja, nappulat, this);
+        logiikka = new Logiikka(koko, lauta, miinoja);
 
     }
 
@@ -60,8 +61,8 @@ public class MiinaPaneeli extends JFrame {
     }
 
     /**
-     * Asetetaan pelilaudan yläpuolelle JMenu valikko, joka sisältää uusi peli
-     * ja sulje peli. Lisäksi luodaan tekstikenttä, jossa on käytettyjen
+     * Asetetaan pelilaudan yläpuolelle JMenu valikko, joka sisältää uusi
+     * peli ja sulje peli. Lisäksi luodaan tekstikenttä, jossa on käytettyjen
      * lippujen määrä.
      */
     public void asetaMenu() {
@@ -128,28 +129,27 @@ public class MiinaPaneeli extends JFrame {
     public void avaaKokoLauta() {
         for (int k = 0; k < koko; k++) {
             for (int j = 0; j < koko; j++) {
-                merkataanRuutuAvatuksi(nappulat[k][j], k, j);
+                merkataanRuutuAvatuksi(k, j);
             }
         }
     }
 
     /**
-     * Avataan ruutu hiiren vasemmalla näppäimellä. Tällä hetkellä '*' on miina,
-     * ja lukuarvo on naapurissa olevien miinojen määrä.
+     * Avataan ruutu hiiren vasemmalla näppäimellä. Miinaa esittää kuva
+     * pommista, ja lukuarvo on naapurissa olevien miinojen määrä.
      *
      * @param nappula JButton, jota on klikattu.
      * @param rivi nappulan rivi sijainti.
      * @param sarake nappulan sarake sijainti.
      */
-    public void merkataanRuutuAvatuksi(JButton nappula, int rivi, int sarake) {
-        ruudut[rivi][sarake].merkkaaRuutuAvatuksi();
+    public void merkataanRuutuAvatuksi(int rivi, int sarake) {
         if (ruudut[rivi][sarake].isOnkoMiina()) {
-            nappula.setIcon(miina);
+            nappulat[rivi][sarake].setIcon(miina);
         } else {
             String luku = Integer.toString(ruudut[rivi][sarake].getArvo());
-            nappula.setIcon(null);
-            nappula.setText(luku);
-            nappula.setEnabled(false);
+            nappulat[rivi][sarake].setIcon(null);
+            nappulat[rivi][sarake].setText(luku);
+            nappulat[rivi][sarake].setEnabled(false);
         }
 
     }
@@ -161,11 +161,10 @@ public class MiinaPaneeli extends JFrame {
      * @param rivi nappulan rivi sijainti.
      * @param sarake nappulan sarake sijainti.
      */
-    public void asetaLippu(JButton nappula, int rivi, int sarake) {
+    public void asetaLippu(int rivi, int sarake) {
         int lippujaKaytetty = logiikka.getLippujaKaytetty();
         teksti.setText("Lippuja " + lippujaKaytetty + "/" + miinoja);
-        nappula.setIcon(lippu);
-        ruudut[rivi][sarake].setLippu();
+        nappulat[rivi][sarake].setIcon(lippu);
     }
 
     /**
@@ -175,12 +174,81 @@ public class MiinaPaneeli extends JFrame {
      * @param rivi nappulan rivi sijainti.
      * @param sarake nappulan sarake sijainti.
      */
-    public void poistaLippu(JButton nappula, int rivi, int sarake) {
+    public void poistaLippu(int rivi, int sarake) {
         int lippujaKaytetty = logiikka.getLippujaKaytetty();
         teksti.setText("Lippuja " + lippujaKaytetty + "/" + miinoja);
-        nappula.setIcon(null);
-        ruudut[rivi][sarake].poistaLippu();
-        nappula.setEnabled(true);
+        nappulat[rivi][sarake].setIcon(null);
+        nappulat[rivi][sarake].setEnabled(true);
+    }
+
+    /**
+     * Metodi kutsuu voitaPeli, jos peli voitettiin. Jos peli hävittiin, niin se
+     * kutsuu haviaPeli metodia.
+     */
+    public void tarkistaPelinLoppuminen() {
+        if (logiikka.voitto()) {
+            voitaPeli();
+        } else if (logiikka.havio()) {
+            haviaPeli();
+        }
+    }
+
+    /**
+     * Tarkistetaan painettiinko oikeeta vai vasenta hiiren nappulaa. Jos
+     * klikattiin vasenta nappulaa, merkataan ruutu avatuksi ja tarkistetaan,
+     * voitettiinko tai havittiinko peli. Jos klikattiin oikeata nappulaa, niin
+     * laitetaan ruutuun lippu, mikali siina ei ennestaan ollut lippua. Mikäli
+     * oli, niin lippu otetaan pois, jolloin nappi on avaamaton.
+     *
+     * @param tapahtuma Hiiren klikkauksesta aiheutuva MouseEvent.
+     */
+    public void nappiaPainettu(MouseEvent tapahtuma) {
+        Component nappula = tapahtuma.getComponent();
+        int[] koordinaatit = etsiNappulanSijainti(nappula);
+        if (nappula.isEnabled() && tapahtuma.getButton() == 1) {
+            logiikka.avataanRuutuTaiSiirretaanMiina(koordinaatit[0], koordinaatit[1]);
+        } else if (tapahtuma.getButton() == 3) {
+            logiikka.laitetaanTaiPoistetaanLippu(koordinaatit[0], koordinaatit[1]);
+        }
+        paivitaJButtonit();
+    }
+
+    /**
+     * Etsitään painetun nappulan sijainnin koordinaatit.
+     *
+     * @param nappula Painettu nappula.
+     * @return palauttaa nappulan sijainnin koordinaatit.
+     */
+    public int[] etsiNappulanSijainti(Component nappula) {
+        int[] koordinaatit = new int[2];
+        for (int k = 0; k < koko; k++) {
+            for (int j = 0; j < koko; j++) {
+                if (nappula == nappulat[k][j]) {
+                    koordinaatit[0] = k;
+                    koordinaatit[1] = j;
+                    break;
+                }
+            }
+        }
+        return koordinaatit;
+    }
+
+    /**
+     * Piirretään JButton ruudukko uudelleen.
+     */
+    public void paivitaJButtonit() {
+        for (int k = 0; k < koko; k++) {
+            for (int j = 0; j < koko; j++) {
+                if (ruudut[k][j].isOnkoAvattu()) {
+                    merkataanRuutuAvatuksi(k, j);
+                } else if (ruudut[k][j].isOnkoLippu()) {
+                    asetaLippu(k, j);
+                } else {
+                    poistaLippu(k, j);
+                }
+            }
+        }
+        tarkistaPelinLoppuminen();
     }
 
     public JButton[][] getNappulat() {
@@ -189,13 +257,18 @@ public class MiinaPaneeli extends JFrame {
 
     public Pelilauta getLauta() {
         return lauta;
+
     }
 
     public class Mouse implements MouseListener {
 
+        public Mouse() {
+
+        }
+
         @Override
         public void mouseClicked(MouseEvent tapahtuma) {
-            logiikka.avataanRuutu(tapahtuma);
+            nappiaPainettu(tapahtuma);
         }
 
         @Override

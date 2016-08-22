@@ -1,12 +1,11 @@
-
 package fi.jonna.mehtonen.domain;
 
 import fi.jonna.mehtonen.domain.Ruutu;
 import java.util.Random;
 
 /**
- * Pelilauta luokka alustaa itse pelilaudan luomalla ruudut, 
- * asettamalla niihin arvot ja asettamalla miinat.
+ * Pelilauta luokka alustaa itse pelilaudan luomalla ruudut, asettamalla niihin
+ * arvot ja asettamalla miinat.
  */
 public class Pelilauta {
 
@@ -15,62 +14,26 @@ public class Pelilauta {
     private Random rnd;
 
     /**
-     * Konstruktorissa asetetaan laudan koko halutuksi, luodaan random ja
-     * Ruutu -matriisi oliot sekä alustetaan pelilauta.
-     * 
+     * Konstruktorissa asetetaan laudan koko halutuksi, luodaan random ja Ruutu
+     * -matriisi oliot sekä alustetaan pelilauta.
+     *
      * @param laudanKoko Pelilaudan haluttu koko.
+     * @param ruudut RuudukonAlustuksessa luotu ruudukko, joka sisältää miinat.
      */
-    public Pelilauta(int laudanKoko) {
+    public Pelilauta(int laudanKoko, Ruutu[][] ruudut) {
         this.koko = laudanKoko;
+        this.ruudut = ruudut;
         this.rnd = new Random();
-        ruudut = new Ruutu[koko][koko];
-        alustaPelilauta();
-    }
-
-    /** Luodaan ruudut, sijoitetaan miinat random generaattorin avulla ja 
-     * asetetaan miinattomille ruuduille arvot.
-     */
-    public void alustaPelilauta() {
-        luoRuudut();
-        asetaMiinat();
         asetaRuuduilleArvot();
     }
 
-    /** Luodaan matriisi, joka sisältää ruutuja.
-     * 
+    /**
+     * Jos ensimmäinen ruutu, joka avataan sisältää miinan, niin miinalle
+     * arvotaan uusi paikka ja peli jatkuu. Kayttaja ei huomaa siirtoa.
+     *
+     * @param rivi kertoo, millä rivillä korvattava miina sijaitsee.
+     * @param sarake kertoo, millä sarakkeella korvattava miina sijaitsee.
      */
-    public void luoRuudut() {
-        for (int k = 0; k < koko; k++) {
-            for (int j = 0; j < koko; j++) {
-                ruudut[k][j] = new Ruutu();
-            }
-        }
-    }
-
-    /** Arvotaan miinoille paikat pelissä.
-     * 
-     */
-    public void asetaMiinat() {
-        int i;
-        int j;
-        for (int k = 0; k < (koko * koko) / 5; k++) {
-            i = rnd.nextInt(koko);
-            j = rnd.nextInt(koko);
-
-            if (ruudut[i][j].isOnkoMiina()) {
-                k--;
-            } else {
-                ruudut[i][j].setMiina();
-            }
-        }
-    }
-
-    /** Jos ensimmäinen ruutu, joka avataan sisältää miinan, niin 
-    * miinalle arvotaan uusi paikka ja peli jatkuu. Kayttaja ei huomaa siirtoa.
-    * 
-    * @param rivi kertoo, millä rivillä korvattava miina sijaitsee.
-    * @param sarake kertoo, millä sarakkeella korvattava miina sijaitsee.
-    */
     public void siirraMiina(int rivi, int sarake) {
         boolean siirretty = false;
         while (!siirretty) {
@@ -85,9 +48,10 @@ public class Pelilauta {
         }
     }
 
-    /** Asetetaan ruuduille arvoiksi se luku, joka vastaa naapuriruuduissa olevien
-    * miinojen maara.
-    */
+    /**
+     * Asetetaan ruuduille arvoiksi se luku, joka vastaa naapuriruuduissa
+     * olevien miinojen maara.
+     */
     public void asetaRuuduilleArvot() {
         for (int k = 0; k < koko; k++) {
             for (int j = 0; j < koko; j++) {
@@ -99,8 +63,9 @@ public class Pelilauta {
 
     }
 
-    /** Lasketaan, kuinka monta miinaa on ruudun naapureissa.
-     * 
+    /**
+     * Lasketaan, kuinka monta miinaa on ruudun naapureissa.
+     *
      * @param rivi kertoo, millä rivillä kyseinen ruutu sijaitsee.
      * @param sarake kertoo, millä sarakkeella kyseinen ruutu sijaitsee.
      * @return naapurissa olevien miinojen määrä.

@@ -41,7 +41,8 @@ public class PelilautaTest {
 
     @Test
     public void miinojaOikeaMaara() {
-        Pelilauta lauta = new Pelilauta(10);
+        RuudukonAlustus alustus = new RuudukonAlustus(10);
+        Pelilauta lauta = new Pelilauta(10, alustus.getRuudut());
         Ruutu[][] ruudut = lauta.getRuudut();
         int miinoja = 0;
         for (int k = 0; k < 10; k++) {
@@ -56,7 +57,8 @@ public class PelilautaTest {
 
     @Test
     public void eiMiinojaKunRuutujaVahemmanKuinViisi() {
-        Pelilauta lauta = new Pelilauta(2);
+        RuudukonAlustus alustus = new RuudukonAlustus(2);
+        Pelilauta lauta = new Pelilauta(2, alustus.getRuudut());
         Ruutu[][] ruudut = lauta.getRuudut();
         int miinoja = 0;
         for (int k = 0; k < 2; k++) {
@@ -71,21 +73,24 @@ public class PelilautaTest {
 
     @Test
     public void laudanKokoOikea() {
-        Pelilauta lauta = new Pelilauta(20);
+        RuudukonAlustus alustus = new RuudukonAlustus(20);
+        Pelilauta lauta = new Pelilauta(20, alustus.getRuudut());
         int vastaus = lauta.getKoko();
         assertEquals(20, vastaus);
     }
 
     @Test
     public void naapurissaMiinojaOikeaMaara() {
-        Pelilauta lauta = new Pelilauta(3);
+        RuudukonAlustus alustus = new RuudukonAlustus(3);
+        Pelilauta lauta = new Pelilauta(3, alustus.getRuudut());
         int vastaus = lauta.montaMiinaaNaapurissa(1, 1);
         assertEquals(1, vastaus);
     }
 
     @Test
     public void siirraMiinaToimii() {
-        Pelilauta lauta = new Pelilauta(5);
+        RuudukonAlustus alustus = new RuudukonAlustus(5);
+        Pelilauta lauta = new Pelilauta(5, alustus.getRuudut());
         Ruutu[][] ruudut = lauta.getRuudut();
         int rivi = 0;
         int sarake = 0;

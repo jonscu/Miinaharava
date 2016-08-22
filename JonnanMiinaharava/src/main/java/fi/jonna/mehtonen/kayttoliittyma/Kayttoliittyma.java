@@ -1,7 +1,7 @@
-
 package fi.jonna.mehtonen.kayttoliittyma;
 
 import fi.jonna.mehtonen.domain.Pelilauta;
+import fi.jonna.mehtonen.domain.RuudukonAlustus;
 import java.util.Scanner;
 import javax.swing.JFrame;
 import java.awt.*;
@@ -106,7 +106,8 @@ public class Kayttoliittyma {
      * @param koko Pelattavan miinaharavan koko.
      */
     public void pelaa(int koko) {
-        lauta = new Pelilauta(koko);
+        RuudukonAlustus alustus = new RuudukonAlustus(koko);
+        lauta = new Pelilauta(koko, alustus.getRuudut());
 
         MiinaPaneeli miinaharava = new MiinaPaneeli(koko, lauta);
         miinaharava.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);

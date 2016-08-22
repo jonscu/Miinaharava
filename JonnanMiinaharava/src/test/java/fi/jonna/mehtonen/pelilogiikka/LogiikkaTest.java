@@ -6,6 +6,7 @@
 package fi.jonna.mehtonen.pelilogiikka;
 
 import fi.jonna.mehtonen.domain.Pelilauta;
+import fi.jonna.mehtonen.domain.RuudukonAlustus;
 import fi.jonna.mehtonen.domain.Ruutu;
 import fi.jonna.mehtonen.kayttoliittyma.MiinaPaneeli;
 import java.awt.event.MouseEvent;
@@ -44,10 +45,10 @@ public class LogiikkaTest {
 
     @Test
     public void voittoToimii() {
-        Pelilauta lauta = new Pelilauta(10);
+        RuudukonAlustus alustus = new RuudukonAlustus(10);
+        Pelilauta lauta = new Pelilauta(10, alustus.getRuudut());
         Ruutu[][] ruudut = lauta.getRuudut();
-        MiinaPaneeli paneeli = new MiinaPaneeli(10, lauta);
-        Logiikka logiikka = new Logiikka(10, lauta, 20, new JButton[10][10], paneeli);
+        Logiikka logiikka = new Logiikka(10, lauta, 20);
         for (int k = 0; k < 10; k++) {
             for (int j = 0; j < 10; j++) {
                 if (!ruudut[k][j].isOnkoMiina()) {
@@ -62,10 +63,10 @@ public class LogiikkaTest {
 
     @Test
     public void havioToimii() {
-        Pelilauta lauta = new Pelilauta(10);
+        RuudukonAlustus alustus = new RuudukonAlustus(10);
+        Pelilauta lauta = new Pelilauta(10, alustus.getRuudut());
         Ruutu[][] ruudut = lauta.getRuudut();
-        MiinaPaneeli paneeli = new MiinaPaneeli(10, lauta);
-        Logiikka logiikka = new Logiikka(10, lauta, 20, new JButton[10][10], paneeli);
+        Logiikka logiikka = new Logiikka(10, lauta, 20);
         for (int k = 0; k < 10; k++) {
             for (int j = 0; j < 10; j++) {
                 if (ruudut[k][j].isOnkoMiina()) {
@@ -80,10 +81,10 @@ public class LogiikkaTest {
 
     @Test
     public void eiVoittoa() {
-        Pelilauta lauta = new Pelilauta(10);
+        RuudukonAlustus alustus = new RuudukonAlustus(10);
+        Pelilauta lauta = new Pelilauta(10, alustus.getRuudut());
         Ruutu[][] ruudut = lauta.getRuudut();
-        MiinaPaneeli paneeli = new MiinaPaneeli(10, lauta);
-        Logiikka logiikka = new Logiikka(10, lauta, 20, new JButton[10][10], paneeli);
+        Logiikka logiikka = new Logiikka(10, lauta, 20);
         for (int k = 0; k < 10; k++) {
             for (int j = 0; j < 10; j++) {
                 if (!ruudut[k][j].isOnkoMiina()) {
@@ -99,10 +100,10 @@ public class LogiikkaTest {
 
     @Test
     public void eiHaviota() {
-        Pelilauta lauta = new Pelilauta(10);
+        RuudukonAlustus alustus = new RuudukonAlustus(10);
+        Pelilauta lauta = new Pelilauta(10, alustus.getRuudut());
         Ruutu[][] ruudut = lauta.getRuudut();
-        MiinaPaneeli paneeli = new MiinaPaneeli(10, lauta);
-        Logiikka logiikka = new Logiikka(10, lauta, 20, new JButton[10][10], paneeli);
+        Logiikka logiikka = new Logiikka(10, lauta, 20);
         for (int k = 0; k < 10; k++) {
             for (int j = 0; j < 10; j++) {
                 if (!ruudut[k][j].isOnkoMiina()) {
@@ -115,4 +116,101 @@ public class LogiikkaTest {
         assertEquals(false, logiikka.havio());
     }
 
+    @Test
+    public void avaaNaapuritToimii() {
+        Ruutu[][] ruudut = new Ruutu[3][3];
+        for (int k = 0; k < 3; k++) {
+            for (int j = 0; j < 3; j++) {
+                ruudut[k][j] = new Ruutu();
+            }
+        }
+        ruudut[0][2].setMiina();
+        Pelilauta lauta = new Pelilauta(3, ruudut);
+        ruudut = lauta.getRuudut();
+        Logiikka logiikka = new Logiikka(3, lauta, 1);
+        logiikka.avaaNaapurit(0, 0);
+
+        boolean vastaus = true;
+        for (int k = 0; k < 3; k++) {
+            for (int j = 0; j < 3; j++) {
+                if (!ruudut[k][j].isOnkoMiina() && !ruudut[k][j].isOnkoAvattu()) {
+                    vastaus = false;
+                    break;
+                } else if (!ruudut[k][j].isOnkoMiina()) {
+                    vastaus = true;
+                }
+            }
+
+        }
+        assertEquals(true, vastaus);
+    }
+
+    @Test
+    public void laitetaanLippuToimii() {
+        Ruutu[][] ruudut = new Ruutu[3][3];
+        for (int k = 0; k < 3; k++) {
+            for (int j = 0; j < 3; j++) {
+                ruudut[k][j] = new Ruutu();
+            }
+        }
+        ruudut[0][2].setMiina();
+        Pelilauta lauta = new Pelilauta(3, ruudut);
+        ruudut = lauta.getRuudut();
+        Logiikka logiikka = new Logiikka(3, lauta, 1);
+        logiikka.laitetaanTaiPoistetaanLippu(1, 1);
+        boolean vastaus = ruudut[1][1].isOnkoLippu();
+        assertEquals(true, vastaus);
+    }
+
+    @Test
+    public void poistetaanLippuToimii() {
+        Ruutu[][] ruudut = new Ruutu[3][3];
+        for (int k = 0; k < 3; k++) {
+            for (int j = 0; j < 3; j++) {
+                ruudut[k][j] = new Ruutu();
+            }
+        }
+        ruudut[0][2].setMiina();
+        Pelilauta lauta = new Pelilauta(3, ruudut);
+        ruudut = lauta.getRuudut();
+        Logiikka logiikka = new Logiikka(3, lauta, 1);
+        logiikka.laitetaanTaiPoistetaanLippu(1, 1);
+        logiikka.laitetaanTaiPoistetaanLippu(1, 1);
+        boolean vastaus = ruudut[1][1].isOnkoLippu();
+        assertEquals(false, vastaus);
+    }
+
+    @Test
+    public void avaaRuutuToimii() {
+        Ruutu[][] ruudut = new Ruutu[3][3];
+        for (int k = 0; k < 3; k++) {
+            for (int j = 0; j < 3; j++) {
+                ruudut[k][j] = new Ruutu();
+            }
+        }
+        ruudut[0][2].setMiina();
+        Pelilauta lauta = new Pelilauta(3, ruudut);
+        ruudut = lauta.getRuudut();
+        Logiikka logiikka = new Logiikka(3, lauta, 1);
+        logiikka.avataanRuutuTaiSiirretaanMiina(1, 1);
+        boolean vastaus = ruudut[1][1].isOnkoAvattu();
+        assertEquals(true, vastaus);
+    }
+
+    @Test
+    public void siirraMiinaToimii() {
+        Ruutu[][] ruudut = new Ruutu[3][3];
+        for (int k = 0; k < 3; k++) {
+            for (int j = 0; j < 3; j++) {
+                ruudut[k][j] = new Ruutu();
+            }
+        }
+        ruudut[0][2].setMiina();
+        Pelilauta lauta = new Pelilauta(3, ruudut);
+        ruudut = lauta.getRuudut();
+        Logiikka logiikka = new Logiikka(3, lauta, 1);
+        logiikka.avataanRuutuTaiSiirretaanMiina(0, 2);
+        boolean vastaus = ruudut[0][2].isOnkoMiina();
+        assertEquals(false, vastaus);
+    }
 }

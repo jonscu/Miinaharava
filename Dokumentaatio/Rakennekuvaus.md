@@ -1,7 +1,6 @@
 #Rakennekuvaus
 
-Miinaharava projekti sisältää neljä luokkaa: Käyttöliittymä, Miinapaneeli, Pelilauta ja Ruutu. Lisäksi Miinapaneeli sisältää
-luokat Logiikka ja MouseListener.
+Miinaharava projekti sisältää seitsemän luokkaa: Käyttöliittymä, Miinapaneeli, Pelilauta, RuudukonAlustus, Ruutu, Logiikka ja MouseListener.
 
 **Käyttöliittymässä** luodaan aloitusikkuna, joka sisältää neljä nappia: Tosi helppo, Helppo, Keskivaikea ja Vaikea. 
 Tosi helppo nappi aloittaa pelin, jonka pelilaudan koko on 3x3, jolloin peli sisältää vain yhden miinan. Helppo

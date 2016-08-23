@@ -20,3 +20,4 @@ Päivä | Tunnit | Kuvaus
 18.8.2016| 2.5h  | Koodin viimeistely, uudet pit ja checkstyle
 19.8.2016| 4.0h  | Sekvenssikaaviot
 22.8.2016| 5.0h  | Logiikka luokan eriytys, ruudukonalustus luokan tekeminen sekä logiikan testit
+23.8.2016| 2.0h  | Sekvenssikaavioiden päivitys.

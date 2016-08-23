@@ -18,6 +18,6 @@
 **Sekvenssikaaviot:**
 ![Alt text](https://github.com/jonscu/Miinaharava/blob/master/Alkuvalikon%20luominen.png)
 ![Alt text](https://github.com/jonscu/Miinaharava/blob/master/Helpon%20pelin%20luominen.png)
-![Alt text](https://github.com/jonscu/Miinaharava/blob/master/Ruudun%20avaus%2C%20kun%20ruudussa%20ei%20miinaa%20ja%20arvo%20on%200..png)
-![Alt text](https://github.com/jonscu/Miinaharava/blob/master/Ruudun%20avaus%2C%20kun%20ruudussa%20on%20miina..png)
+![Alt text](https://github.com/jonscu/Miinaharava/blob/master/Ruudun%20avaus%2C%20kun%20ruudussa%20ei%20miinaa%20ja%20arvo%20on%200.%20(1).png)
+![Alt text](https://github.com/jonscu/Miinaharava/blob/master/Ruudun%20avaus%2C%20kun%20ruudussa%20on%20miina%20ja%20ei%20ole%20ensimm%C3%A4inen%20painallus..png)
 

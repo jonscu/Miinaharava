@@ -128,7 +128,7 @@ public class LogiikkaTest {
         Pelilauta lauta = new Pelilauta(3, ruudut);
         ruudut = lauta.getRuudut();
         Logiikka logiikka = new Logiikka(3, lauta, 1);
-        logiikka.avaaNaapurit(0, 0);
+        logiikka.avataanRuutuTaiSiirretaanMiina(0, 0);
 
         boolean vastaus = true;
         for (int k = 0; k < 3; k++) {
@@ -212,5 +212,38 @@ public class LogiikkaTest {
         logiikka.avataanRuutuTaiSiirretaanMiina(0, 2);
         boolean vastaus = ruudut[0][2].isOnkoMiina();
         assertEquals(false, vastaus);
+    }
+    
+    @Test
+    public void laitetaanLippuLisaaLippujenMaaraa() {
+        Ruutu[][] ruudut = new Ruutu[3][3];
+        for (int k = 0; k < 3; k++) {
+            for (int j = 0; j < 3; j++) {
+                ruudut[k][j] = new Ruutu();
+            }
+        }
+        ruudut[0][2].setMiina();
+        Pelilauta lauta = new Pelilauta(3, ruudut);
+        ruudut = lauta.getRuudut();
+        Logiikka logiikka = new Logiikka(3, lauta, 1);
+        logiikka.laitetaanTaiPoistetaanLippu(1, 1);;
+        assertEquals(1, logiikka.getLippujaKaytetty());
+    }
+
+    @Test
+    public void poistetaanLippuVahentaaLippujenMaaraa() {
+        Ruutu[][] ruudut = new Ruutu[3][3];
+        for (int k = 0; k < 3; k++) {
+            for (int j = 0; j < 3; j++) {
+                ruudut[k][j] = new Ruutu();
+            }
+        }
+        ruudut[0][2].setMiina();
+        Pelilauta lauta = new Pelilauta(3, ruudut);
+        ruudut = lauta.getRuudut();
+        Logiikka logiikka = new Logiikka(3, lauta, 1);
+        logiikka.laitetaanTaiPoistetaanLippu(1, 1);
+        logiikka.laitetaanTaiPoistetaanLippu(1, 1);
+        assertEquals(0, logiikka.getLippujaKaytetty());
     }
 }

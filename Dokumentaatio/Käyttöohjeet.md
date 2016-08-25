@@ -1,6 +1,6 @@
 #Käyttöohjeet
 
-Tupla klikkaa Miinaharava kansiossa olevaa JonnanMiinaharava.jar tiedostoa. Ruudulle tulee valikko, josta voi valita pelin vaikeustason.
+Tupla klikkaa Miinaharavan target kansiossa olevaa JonnanMiinaharava.jar tiedostoa. Ruudulle tulee valikko, josta voi valita pelin vaikeustason.
 Valitse vaikeustaso, jota haluat pelata. 
 
 ###Vaikeustaso:
